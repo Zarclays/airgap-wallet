@@ -29,7 +29,7 @@
               },
               {
                 "glob": "**/*",
-                "input": "node_modules/@airgap/angular-core/src/assets",
+                "input": "node_modules/'@zarclays/zgap-angular-core/src/assets",
                 "output": "assets"
               },
               {

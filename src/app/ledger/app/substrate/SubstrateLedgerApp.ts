@@ -1,9 +1,10 @@
 import { AirGapMarketWallet, AirGapWalletStatus, SubstrateNetwork, SubstrateProtocol } from '@zarclays/zgap-coinlib-core'
-import {
-  SubstrateSignature,
-  SubstrateSignatureType
-} from '@zarclays/zgap-coinlib-core/protocols/substrate/common/data/transaction/SubstrateSignature'
+import { SubstrateSignatureType } from '@zarclays/zgap-coinlib-core/protocols/substrate/common/data/transaction/SubstrateSignature'
 import { SubstrateTransaction } from '@zarclays/zgap-coinlib-core/protocols/substrate/common/data/transaction/SubstrateTransaction'
+import {
+  SubstrateCompatSignatureType,
+  substrateSignatureFactory
+} from '@zarclays/zgap-coinlib-core/protocols/substrate/compat/SubstrateCompatSignature'
 import { RawSubstrateTransaction } from '@zarclays/zgap-coinlib-core/serializer/types'
 import { AirGapWalletPriceService } from '@zarclays/zgap-coinlib-core/wallet/AirGapMarketWallet'
 import { ResponseAddress, ResponseBase, ResponseSign, SubstrateApp } from '@zondax/ledger-polkadot'
@@ -12,7 +13,7 @@ import { Buffer } from 'buffer'
 import { ReturnCode } from '../../ReturnCode'
 import { LedgerApp } from '../LedgerApp'
 
-export abstract class  SubstrateLedgerApp<Network extends SubstrateNetwork> extends LedgerApp {
+export abstract class SubstrateLedgerApp<Network extends SubstrateNetwork> extends LedgerApp {
   protected abstract readonly protocol: SubstrateProtocol<Network>
 
   protected abstract getApp(): SubstrateApp
@@ -44,7 +45,7 @@ export abstract class  SubstrateLedgerApp<Network extends SubstrateNetwork> exte
   public async signTransaction(transaction: RawSubstrateTransaction): Promise<string> {
     const txs = this.protocol.options.transactionController.decodeDetails(transaction.encoded)
 
-    const signedTxs: (SubstrateTransaction | null)[] = []
+    const signedTxs: (SubstrateTransaction<Network> | null)[] = []
     for (const tx of txs) {
       signedTxs.push(await this.signSubstrateTransaction(tx.transaction, tx.payload))
     }
@@ -58,7 +59,10 @@ export abstract class  SubstrateLedgerApp<Network extends SubstrateNetwork> exte
     return this.protocol.options.transactionController.encodeDetails(txs)
   }
 
-  private async signSubstrateTransaction(transaction: SubstrateTransaction, payload: string): Promise<SubstrateTransaction | null> {
+  private async signSubstrateTransaction(
+    transaction: SubstrateTransaction<Network>,
+    payload: string
+  ): Promise<SubstrateTransaction<Network> | null> {
     try {
       const derivationPath: number[] = this.derivationPathToArray(this.protocol.standardDerivationPath)
       const [account, change, addressIndex]: number[] = derivationPath.slice(2)
@@ -70,7 +74,9 @@ export abstract class  SubstrateLedgerApp<Network extends SubstrateNetwork> exte
         const signatureType: SubstrateSignatureType = SubstrateSignatureType[SubstrateSignatureType[response.signature.readUInt8(0)]]
         const signatureBuffer: Buffer = response.signature.slice(1, 65)
 
-        const signature: SubstrateSignature = SubstrateSignature.create(signatureType, signatureBuffer)
+        const signature: SubstrateCompatSignatureType[Network] = substrateSignatureFactory(
+          this.protocol.options.network.extras.network
+        ).create(signatureType, signatureBuffer)
 
         return SubstrateTransaction.fromTransaction(transaction, { signature })
       } else if (
