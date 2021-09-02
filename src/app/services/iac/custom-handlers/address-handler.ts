@@ -1,11 +1,11 @@
 import { Router } from '@angular/router'
-import { AirGapMarketWallet, supportedProtocols } from '@airgap/coinlib-core'
+import { AirGapMarketWallet, supportedProtocols } from '@zarclays/zgap-coinlib-core'
 
 import { partition } from '../../../utils/utils'
 import { AccountProvider } from '../../account/account.provider'
 import { DataService, DataServiceKey } from '../../data/data.service'
 import { ErrorCategory, handleErrorSentry } from '../../sentry-error-handler/sentry-error-handler'
-import { IACSinglePartHandler } from '@airgap/angular-core'
+import { IACSinglePartHandler } from '@zarclays/zgap-angular-core'
 
 interface Payload {
   address: string

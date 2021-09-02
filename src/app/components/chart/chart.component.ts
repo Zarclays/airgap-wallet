@@ -2,11 +2,11 @@ import { AfterViewInit, Component, Input, OnDestroy, ViewChild } from '@angular/
 import * as moment from 'moment'
 import { BaseChartDirective } from 'ng2-charts'
 import { combineLatest, Subscription } from 'rxjs'
-import { AirGapMarketWallet, TimeInterval } from '@airgap/coinlib-core/wallet/AirGapMarketWallet'
+import { AirGapMarketWallet, TimeInterval } from '@zarclays/zgap-coinlib-core/wallet/AirGapMarketWallet'
 import { DrawChartService } from './../../services/draw-chart/draw-chart.service'
 import { MarketDataService, ValueAtTimestamp } from './../../services/market-data/market-data.service'
 import { AccountProvider } from 'src/app/services/account/account.provider'
-import { AirGapWalletStatus, NetworkType, SubProtocolSymbols } from '@airgap/coinlib-core'
+import { AirGapWalletStatus, NetworkType, SubProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import { distinctUntilChanged } from 'rxjs/operators'
 
 @Component({

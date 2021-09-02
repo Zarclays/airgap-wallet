@@ -1,4 +1,4 @@
-import { MainProtocolSymbols, ProtocolSymbols } from '@airgap/coinlib-core'
+import { MainProtocolSymbols, ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import { Component } from '@angular/core'
 import { LoadingController } from '@ionic/angular'
 import { TranslateService } from '@ngx-translate/core'

@@ -21,10 +21,10 @@ import {
   ICoinProtocol,
   TezosCryptoClient,
   TezosProtocol
-} from '@airgap/coinlib-core'
-import { MainProtocolSymbols } from '@airgap/coinlib-core'
-import { TezosWrappedOperation } from '@airgap/coinlib-core/protocols/tezos/types/TezosWrappedOperation'
-import { ProtocolNetwork } from '@airgap/coinlib-core/utils/ProtocolNetwork'
+} from '@zarclays/zgap-coinlib-core'
+import { MainProtocolSymbols } from '@zarclays/zgap-coinlib-core'
+import { TezosWrappedOperation } from '@zarclays/zgap-coinlib-core/protocols/tezos/types/TezosWrappedOperation'
+import { ProtocolNetwork } from '@zarclays/zgap-coinlib-core/utils/ProtocolNetwork'
 import { AccountProvider } from 'src/app/services/account/account.provider'
 import { BeaconService } from 'src/app/services/beacon/beacon.service'
 import { DataService, DataServiceKey } from 'src/app/services/data/data.service'
@@ -32,7 +32,7 @@ import { ErrorCategory, handleErrorSentry } from 'src/app/services/sentry-error-
 import { ShortenStringPipe } from 'src/app/pipes/shorten-string/shorten-string.pipe'
 import { TranslateService } from '@ngx-translate/core'
 import { CheckboxInput } from 'src/app/components/permission-request/permission-request.component'
-import { generateId } from '@airgap/coinlib-core'
+import { generateId } from '@zarclays/zgap-coinlib-core'
 import { Subscription } from 'rxjs'
 import BigNumber from 'bignumber.js'
 

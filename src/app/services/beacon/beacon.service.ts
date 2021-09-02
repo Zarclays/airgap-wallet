@@ -15,16 +15,16 @@ import {
 
 import { Injectable } from '@angular/core'
 import { LoadingController, ModalController, ToastController } from '@ionic/angular'
-import { ICoinProtocol, MainProtocolSymbols, RawEthereumTransaction } from '@airgap/coinlib-core'
-import { TezosNetwork, TezosProtocol } from '@airgap/coinlib-core/protocols/tezos/TezosProtocol'
+import { ICoinProtocol, MainProtocolSymbols, RawEthereumTransaction } from '@zarclays/zgap-coinlib-core'
+import { TezosNetwork, TezosProtocol } from '@zarclays/zgap-coinlib-core/protocols/tezos/TezosProtocol'
 import {
   TezblockBlockExplorer,
   TezosProtocolNetwork,
   TezosProtocolNetworkExtras,
   TezosProtocolOptions
-} from '@airgap/coinlib-core/protocols/tezos/TezosProtocolOptions'
-import { ProtocolService } from '@airgap/angular-core'
-import { NetworkType } from '@airgap/coinlib-core/utils/ProtocolNetwork'
+} from '@zarclays/zgap-coinlib-core/protocols/tezos/TezosProtocolOptions'
+import { ProtocolService } from '@zarclays/zgap-angular-core'
+import { NetworkType } from '@zarclays/zgap-coinlib-core/utils/ProtocolNetwork'
 import { BeaconRequestPage } from 'src/app/pages/beacon-request/beacon-request.page'
 import { ErrorPage } from 'src/app/pages/error/error.page'
 

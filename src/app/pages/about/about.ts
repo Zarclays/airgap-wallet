@@ -1,4 +1,4 @@
-import { AndroidFlavor, APP_INFO_PLUGIN, AppInfoPlugin } from '@airgap/angular-core'
+import { AndroidFlavor, APP_INFO_PLUGIN, AppInfoPlugin } from '@zarclays/zgap-angular-core'
 import { Component, Inject } from '@angular/core'
 import { Capacitor } from '@capacitor/core'
 import { ErrorCategory, handleErrorSentry } from '../../services/sentry-error-handler/sentry-error-handler'

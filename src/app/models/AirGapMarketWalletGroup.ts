@@ -1,5 +1,5 @@
-import { AirGapMarketWallet } from '@airgap/coinlib-core'
-import { AirGapWalletStatus } from '@airgap/coinlib-core/wallet/AirGapWallet'
+import { AirGapMarketWallet } from '@zarclays/zgap-coinlib-core'
+import { AirGapWalletStatus } from '@zarclays/zgap-coinlib-core/wallet/AirGapWallet'
 
 export interface SerializedAirGapMarketWalletGroup {
   id: string

@@ -1,4 +1,4 @@
-import { partition, ProtocolService } from '@airgap/angular-core'
+import { partition, ProtocolService } from '@zarclays/zgap-angular-core'
 import { BeaconRequestOutputMessage, BeaconResponseInputMessage } from '@airgap/beacon-sdk'
 import {
   AirGapMarketWallet,
@@ -9,8 +9,8 @@ import {
   SignedTransaction,
   TezosSaplingProtocol,
   RawEthereumTransaction
-} from '@airgap/coinlib-core'
-import { NetworkType } from '@airgap/coinlib-core/utils/ProtocolNetwork'
+} from '@zarclays/zgap-coinlib-core'
+import { NetworkType } from '@zarclays/zgap-coinlib-core/utils/ProtocolNetwork'
 import { Component } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { AlertController, LoadingController, Platform, ToastController } from '@ionic/angular'

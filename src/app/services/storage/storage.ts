@@ -1,8 +1,8 @@
-import { BaseStorage } from '@airgap/angular-core'
+import { BaseStorage } from '@zarclays/zgap-angular-core'
 import { Network } from '@airgap/beacon-sdk'
 import { Injectable } from '@angular/core'
 import { Storage } from '@ionic/storage'
-import { ICoinProtocol, SerializedAirGapWallet } from '@airgap/coinlib-core'
+import { ICoinProtocol, SerializedAirGapWallet } from '@zarclays/zgap-coinlib-core'
 import { SerializedAirGapMarketWalletGroup } from '../../models/AirGapMarketWalletGroup'
 import { ExchangeTransaction } from '../exchange/exchange'
 

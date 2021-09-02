@@ -1,5 +1,5 @@
-import { UIResource, UIResourceStatus } from '@airgap/angular-core'
-import { AirGapMarketWallet } from '@airgap/coinlib-core'
+import { UIResource, UIResourceStatus } from '@zarclays/zgap-angular-core'
+import { AirGapMarketWallet } from '@zarclays/zgap-coinlib-core'
 import { Component } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Store } from '@ngrx/store'

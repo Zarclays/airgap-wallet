@@ -1,5 +1,5 @@
-import { Action } from '@airgap/coinlib-core/actions/Action'
-import { RepeatableAction } from '@airgap/coinlib-core/actions/RepeatableAction'
+import { Action } from '@zarclays/zgap-coinlib-core/actions/Action'
+import { RepeatableAction } from '@zarclays/zgap-coinlib-core/actions/RepeatableAction'
 
 export interface ButtonActionContext {
   name: string

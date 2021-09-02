@@ -1,6 +1,6 @@
 import { UIWidget, UIWidgetConfig } from './UIWidget'
 import { AbstractControl, ValidatorFn } from '@angular/forms'
-import { AirGapMarketWallet } from '@airgap/coinlib-core'
+import { AirGapMarketWallet } from '@zarclays/zgap-coinlib-core'
 
 export interface UIInputWidgetConfig extends UIWidgetConfig {
   id: string

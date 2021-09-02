@@ -1,6 +1,6 @@
-import { AirGapMarketWallet } from '@airgap/coinlib-core'
-import { IAirGapSignedTransaction } from '@airgap/coinlib-core/interfaces/IAirGapSignedTransaction'
-import { AirGapWalletPriceService } from '@airgap/coinlib-core/wallet/AirGapMarketWallet'
+import { AirGapMarketWallet } from '@zarclays/zgap-coinlib-core'
+import { IAirGapSignedTransaction } from '@zarclays/zgap-coinlib-core/interfaces/IAirGapSignedTransaction'
+import { AirGapWalletPriceService } from '@zarclays/zgap-coinlib-core/wallet/AirGapMarketWallet'
 
 import { LedgerConnection } from '../connection/LedgerConnection'
 

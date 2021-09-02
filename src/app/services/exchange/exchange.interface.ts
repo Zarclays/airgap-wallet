@@ -1,4 +1,4 @@
-import { ProtocolSymbols } from '@airgap/coinlib-core'
+import { ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 
 export type ExchangeIdentifier = string
 

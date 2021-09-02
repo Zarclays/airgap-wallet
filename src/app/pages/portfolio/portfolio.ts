@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
-import { AirGapMarketWallet, ICoinSubProtocol } from '@airgap/coinlib-core'
+import { AirGapMarketWallet, ICoinSubProtocol } from '@zarclays/zgap-coinlib-core'
 import { forkJoin, from, Observable, ReplaySubject, Subscription } from 'rxjs'
 import { Platform } from '@ionic/angular'
 
@@ -9,9 +9,9 @@ import { AccountProvider } from '../../services/account/account.provider'
 import { DataServiceKey } from '../../services/data/data.service'
 import { OperationsProvider } from '../../services/operations/operations'
 import { ErrorCategory, handleErrorSentry } from '../../services/sentry-error-handler/sentry-error-handler'
-import { ProtocolService } from '@airgap/angular-core'
+import { ProtocolService } from '@zarclays/zgap-angular-core'
 import BigNumber from 'bignumber.js'
-import { AirGapWallet, AirGapWalletStatus } from '@airgap/coinlib-core/wallet/AirGapWallet'
+import { AirGapWallet, AirGapWalletStatus } from '@zarclays/zgap-coinlib-core/wallet/AirGapWallet'
 import { map } from 'rxjs/operators'
 
 interface WalletGroup {

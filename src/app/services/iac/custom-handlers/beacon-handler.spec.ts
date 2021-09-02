@@ -1,4 +1,4 @@
-import { IACHandlerStatus } from '@airgap/angular-core'
+import { IACHandlerStatus } from '@zarclays/zgap-angular-core'
 import { BeaconHandler } from './beacon-handler'
 
 describe('BeaconHandler', () => {

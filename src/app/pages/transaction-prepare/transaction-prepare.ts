@@ -1,4 +1,4 @@
-import { AddressService, AmountConverterPipe, ClipboardService } from '@airgap/angular-core'
+import { AddressService, AmountConverterPipe, ClipboardService } from '@zarclays/zgap-angular-core'
 import { Component, NgZone } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
@@ -10,9 +10,9 @@ import {
   SubProtocolSymbols,
   IACMessageType,
   TezosProtocol
-} from '@airgap/coinlib-core'
-import { FeeDefaults } from '@airgap/coinlib-core/protocols/ICoinProtocol'
-import { NetworkType } from '@airgap/coinlib-core/utils/ProtocolNetwork'
+} from '@zarclays/zgap-coinlib-core'
+import { FeeDefaults } from '@zarclays/zgap-coinlib-core/protocols/ICoinProtocol'
+import { NetworkType } from '@zarclays/zgap-coinlib-core/utils/ProtocolNetwork'
 import { BigNumber } from 'bignumber.js'
 import { BehaviorSubject } from 'rxjs'
 import { debounceTime } from 'rxjs/operators'

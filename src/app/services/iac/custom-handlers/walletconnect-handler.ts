@@ -1,4 +1,4 @@
-import { IACSinglePartHandler } from '@airgap/angular-core'
+import { IACSinglePartHandler } from '@zarclays/zgap-angular-core'
 import { WalletconnectService } from '../../walletconnect/walletconnect.service'
 
 /**

@@ -1,4 +1,4 @@
-import { MainProtocolSymbols } from '@airgap/coinlib-core'
+import { MainProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 
 export class StorageMock {
   private readonly data: any = {

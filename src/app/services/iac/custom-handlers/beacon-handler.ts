@@ -1,4 +1,4 @@
-import { IACSinglePartHandler } from '@airgap/angular-core'
+import { IACSinglePartHandler } from '@zarclays/zgap-angular-core'
 import { P2PPairingRequest, Serializer } from '@airgap/beacon-sdk'
 
 import { BeaconService } from '../../beacon/beacon.service'

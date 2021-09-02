@@ -1,4 +1,4 @@
-import { ClipboardService, SerializerService, IACMessageTransport } from '@airgap/angular-core'
+import { ClipboardService, SerializerService, IACMessageTransport } from '@zarclays/zgap-angular-core'
 import { Component, Inject } from '@angular/core'
 import { Router } from '@angular/router'
 import { SharePlugin } from '@capacitor/core'

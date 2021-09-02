@@ -1,4 +1,4 @@
-import { ProtocolService } from '@airgap/angular-core'
+import { ProtocolService } from '@zarclays/zgap-angular-core'
 import {
   AirGapMarketWallet,
   IAirGapTransaction,
@@ -6,10 +6,10 @@ import {
   MainProtocolSymbols,
   SubProtocolSymbols,
   TezosKtProtocol
-} from '@airgap/coinlib-core'
-import { Action } from '@airgap/coinlib-core/actions/Action'
-import { IAirGapTransactionResult, IProtocolTransactionCursor } from '@airgap/coinlib-core/interfaces/IAirGapTransaction'
-import { TezosKtAddress } from '@airgap/coinlib-core/protocols/tezos/kt/TezosKtAddress'
+} from '@zarclays/zgap-coinlib-core'
+import { Action } from '@zarclays/zgap-coinlib-core/actions/Action'
+import { IAirGapTransactionResult, IProtocolTransactionCursor } from '@zarclays/zgap-coinlib-core/interfaces/IAirGapTransaction'
+import { TezosKtAddress } from '@zarclays/zgap-coinlib-core/protocols/tezos/kt/TezosKtAddress'
 import { HttpClient } from '@angular/common/http'
 import { Component } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'

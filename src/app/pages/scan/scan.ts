@@ -1,4 +1,4 @@
-import { IACMessageTransport, PermissionsService, QrScannerService } from '@airgap/angular-core'
+import { IACMessageTransport, PermissionsService, QrScannerService } from '@zarclays/zgap-angular-core'
 import { PercentPipe } from '@angular/common'
 import { Component, NgZone, ViewChild } from '@angular/core'
 // import { Router } from '@angular/router'

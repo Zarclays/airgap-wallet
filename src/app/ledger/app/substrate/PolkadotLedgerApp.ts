@@ -1,5 +1,5 @@
 import { newPolkadotApp, SubstrateApp } from '@zondax/ledger-polkadot'
-import { PolkadotProtocol, SubstrateProtocol } from '@airgap/coinlib-core'
+import { PolkadotProtocol, SubstrateProtocol } from '@zarclays/zgap-coinlib-core'
 
 import { SubstrateLedgerApp } from './SubstrateLedgerApp'
 

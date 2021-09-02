@@ -1,11 +1,11 @@
-import { SubProtocolSymbols } from '@airgap/coinlib-core'
+import { SubProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import axios from '../../../../node_modules/axios'
 import { Injectable } from '@angular/core'
-import { ICoinProtocol } from '@airgap/coinlib-core'
-import { AirGapMarketWallet, AirGapWalletPriceService, TimeInterval } from '@airgap/coinlib-core/wallet/AirGapMarketWallet'
+import { ICoinProtocol } from '@zarclays/zgap-coinlib-core'
+import { AirGapMarketWallet, AirGapWalletPriceService, TimeInterval } from '@zarclays/zgap-coinlib-core/wallet/AirGapMarketWallet'
 import BigNumber from 'bignumber.js'
 import { CachingService, CachingServiceKey, StorageObject } from '../caching/caching.service'
-import { IAirGapTransactionResult } from '@airgap/coinlib-core/interfaces/IAirGapTransaction'
+import { IAirGapTransactionResult } from '@zarclays/zgap-coinlib-core/interfaces/IAirGapTransaction'
 
 export interface CryptoPrices {
   time: number

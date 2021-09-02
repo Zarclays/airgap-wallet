@@ -1,7 +1,7 @@
-import { AmountConverterPipe, ProtocolService } from '@airgap/angular-core'
+import { AmountConverterPipe, ProtocolService } from '@zarclays/zgap-angular-core'
 import { Component, Input } from '@angular/core'
-import { AirGapMarketWallet, ICoinDelegateProtocol } from '@airgap/coinlib-core'
-import { NetworkType } from '@airgap/coinlib-core/utils/ProtocolNetwork'
+import { AirGapMarketWallet, ICoinDelegateProtocol } from '@zarclays/zgap-coinlib-core'
+import { NetworkType } from '@zarclays/zgap-coinlib-core/utils/ProtocolNetwork'
 import BigNumber from 'bignumber.js'
 import { Observable, Subscription } from 'rxjs'
 

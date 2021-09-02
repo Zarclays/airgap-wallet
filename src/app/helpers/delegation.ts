@@ -1,6 +1,6 @@
-import { ICoinProtocol, ICoinDelegateProtocol, TezosProtocol } from '@airgap/coinlib-core'
+import { ICoinProtocol, ICoinDelegateProtocol, TezosProtocol } from '@zarclays/zgap-coinlib-core'
 import { IAirGapCoinDelegateProtocol } from '../interfaces/IAirGapCoinDelegateProtocol'
-import { MainProtocolSymbols, SubProtocolSymbols } from '@airgap/coinlib-core'
+import { MainProtocolSymbols, SubProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 
 export function supportsDelegation(protocol: ICoinProtocol): protocol is ICoinDelegateProtocol {
   const delegateProtocol = protocol as ICoinDelegateProtocol

@@ -11,19 +11,19 @@ import {
   MainProtocolSymbols,
   TezosKtProtocol,
   TezosSaplingProtocol
-} from '@airgap/coinlib-core'
-import { CosmosTransaction } from '@airgap/coinlib-core/protocols/cosmos/CosmosTransaction'
-import { DelegateeDetails, DelegatorAction, DelegatorDetails } from '@airgap/coinlib-core/protocols/ICoinDelegateProtocol'
-import { FeeDefaults } from '@airgap/coinlib-core'
-import { TezosBTC } from '@airgap/coinlib-core'
+} from '@zarclays/zgap-coinlib-core'
+import { CosmosTransaction } from '@zarclays/zgap-coinlib-core/protocols/cosmos/CosmosTransaction'
+import { DelegateeDetails, DelegatorAction, DelegatorDetails } from '@zarclays/zgap-coinlib-core/protocols/ICoinDelegateProtocol'
+import { FeeDefaults } from '@zarclays/zgap-coinlib-core'
+import { TezosBTC } from '@zarclays/zgap-coinlib-core'
 import {
   RawAeternityTransaction,
   RawBitcoinTransaction,
   RawEthereumTransaction,
   RawTezosTransaction,
   RawSubstrateTransaction
-} from '@airgap/coinlib-core/serializer/types'
-import { SubProtocolSymbols } from '@airgap/coinlib-core'
+} from '@zarclays/zgap-coinlib-core/serializer/types'
+import { SubProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import BigNumber from 'bignumber.js'
 import { BehaviorSubject } from 'rxjs'
 import { map } from 'rxjs/operators'
@@ -40,9 +40,9 @@ import { UIRewardList } from 'src/app/models/widgets/display/UIRewardList'
 import { UIInputText } from 'src/app/models/widgets/input/UIInputText'
 
 import { ErrorCategory, handleErrorSentry } from '../sentry-error-handler/sentry-error-handler'
-import { ProtocolService } from '@airgap/angular-core'
+import { ProtocolService } from '@zarclays/zgap-angular-core'
 import { SignPayloadRequestOutput } from '@airgap/beacon-sdk'
-import { TezosSaplingAddress } from '@airgap/coinlib-core/protocols/tezos/sapling/TezosSaplingAddress'
+import { TezosSaplingAddress } from '@zarclays/zgap-coinlib-core/protocols/tezos/sapling/TezosSaplingAddress'
 
 export type SerializableTx =
   | RawTezosTransaction

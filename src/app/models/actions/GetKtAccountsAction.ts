@@ -1,4 +1,4 @@
-import { ImportAccountAction } from '@airgap/coinlib-core/actions/GetKtAccountsAction'
+import { ImportAccountAction } from '@zarclays/zgap-coinlib-core/actions/GetKtAccountsAction'
 
 import { WalletActionInfo } from '../ActionGroup'
 

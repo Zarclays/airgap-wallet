@@ -1,5 +1,5 @@
-import { flattened } from '@airgap/angular-core'
-import { AirGapWalletStatus } from '@airgap/coinlib-core/wallet/AirGapWallet'
+import { flattened } from '@zarclays/zgap-angular-core'
+import { AirGapWalletStatus } from '@zarclays/zgap-coinlib-core/wallet/AirGapWallet'
 import { Component, NgZone, OnDestroy } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { LoadingController, NavController, Platform } from '@ionic/angular'

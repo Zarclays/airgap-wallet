@@ -1,8 +1,8 @@
-import { DeeplinkService, ProtocolService } from '@airgap/angular-core'
+import { DeeplinkService, ProtocolService } from '@zarclays/zgap-angular-core'
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { IonSlides, Platform } from '@ionic/angular'
-import { ICoinProtocol } from '@airgap/coinlib-core'
+import { ICoinProtocol } from '@zarclays/zgap-coinlib-core'
 
 import { ErrorCategory, handleErrorSentry } from '../../services/sentry-error-handler/sentry-error-handler'
 

@@ -1,6 +1,6 @@
-import { ProtocolService } from '@airgap/angular-core'
+import { ProtocolService } from '@zarclays/zgap-angular-core'
 import { Component, Input, OnInit } from '@angular/core'
-import { IAirGapTransaction, ICoinProtocol } from '@airgap/coinlib-core'
+import { IAirGapTransaction, ICoinProtocol } from '@zarclays/zgap-coinlib-core'
 
 @Component({
   selector: 'transaction-item',

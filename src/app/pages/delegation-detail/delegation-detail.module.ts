@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { IonicModule } from '@ionic/angular'
 
-import { AirGapAngularCoreModule } from '@airgap/angular-core'
+import { AirGapAngularCoreModule } from '@zarclays/zgap-angular-core'
 import { RouterModule } from '@angular/router'
 import { TranslateModule } from '@ngx-translate/core'
 import { MomentModule } from 'ngx-moment'

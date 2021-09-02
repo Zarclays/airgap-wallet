@@ -4,8 +4,8 @@ import {
   PermissionsService,
   ProtocolService,
   SubProtocolStoreService
-} from '@airgap/angular-core'
-import { AirGapMarketWallet, AirGapWalletStatus, BitcoinProtocol, EthereumProtocol } from '@airgap/coinlib-core'
+} from '@zarclays/zgap-angular-core'
+import { AirGapMarketWallet, AirGapWalletStatus, BitcoinProtocol, EthereumProtocol } from '@zarclays/zgap-coinlib-core'
 import { take } from 'rxjs/operators'
 import { TestBed, waitForAsync } from '@angular/core/testing'
 import { UnitHelper } from '../../../../test-config/unit-test-helper'

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Platform } from '@ionic/angular'
-import { AirGapMarketWallet, IACMessageDefinitionObjectV3, IAirGapTransaction } from '@airgap/coinlib-core'
+import { AirGapMarketWallet, IACMessageDefinitionObjectV3, IAirGapTransaction } from '@zarclays/zgap-coinlib-core'
 import BigNumber from 'bignumber.js'
 
 import { ErrorCategory, handleErrorSentry } from '../../services/sentry-error-handler/sentry-error-handler'

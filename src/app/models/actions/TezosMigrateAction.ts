@@ -1,9 +1,9 @@
-import { ProtocolService } from '@airgap/angular-core'
+import { ProtocolService } from '@zarclays/zgap-angular-core'
 import { Router } from '@angular/router'
 import { AlertController } from '@ionic/angular'
 import { TranslateService } from '@ngx-translate/core'
-import { AirGapMarketWallet, MainProtocolSymbols } from '@airgap/coinlib-core'
-import { Action } from '@airgap/coinlib-core/actions/Action'
+import { AirGapMarketWallet, MainProtocolSymbols } from '@zarclays/zgap-coinlib-core'
+import { Action } from '@zarclays/zgap-coinlib-core/actions/Action'
 
 import { ShortenStringPipe } from '../../pipes/shorten-string/shorten-string.pipe'
 import { DataService, DataServiceKey } from '../../services/data/data.service'

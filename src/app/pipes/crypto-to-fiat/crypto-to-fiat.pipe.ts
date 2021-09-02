@@ -1,8 +1,8 @@
-import { ProtocolService } from '@airgap/angular-core'
+import { ProtocolService } from '@zarclays/zgap-angular-core'
 import { Pipe, PipeTransform } from '@angular/core'
-import { ProtocolSymbols } from '@airgap/coinlib-core'
+import { ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import { BigNumber } from 'bignumber.js'
-import { ICoinProtocol } from '@airgap/coinlib-core'
+import { ICoinProtocol } from '@zarclays/zgap-coinlib-core'
 
 @Pipe({
   name: 'cryptoToFiat'

@@ -1,4 +1,4 @@
-import { APP_CONFIG, APP_INFO_PLUGIN, PermissionsService, PERMISSIONS_PLUGIN } from '@airgap/angular-core'
+import { APP_CONFIG, APP_INFO_PLUGIN, PermissionsService, PERMISSIONS_PLUGIN } from '@zarclays/zgap-angular-core'
 import { CommonModule } from '@angular/common'
 import { HttpClientModule } from '@angular/common/http'
 import { TestModuleMetadata } from '@angular/core/testing'

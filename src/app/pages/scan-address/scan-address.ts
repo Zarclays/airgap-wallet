@@ -1,4 +1,4 @@
-import { PermissionsService, QrScannerService } from '@airgap/angular-core'
+import { PermissionsService, QrScannerService } from '@zarclays/zgap-angular-core'
 import { Component, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { NavController, Platform } from '@ionic/angular'

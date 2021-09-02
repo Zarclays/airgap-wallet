@@ -1,4 +1,4 @@
-import { ProtocolService, SerializerService } from '@airgap/angular-core'
+import { ProtocolService, SerializerService } from '@zarclays/zgap-angular-core'
 import { Component, Input, OnChanges } from '@angular/core'
 import {
   IACMessageDefinitionObject,
@@ -8,7 +8,7 @@ import {
   ProtocolSymbols,
   SignedTransaction,
   TezosSaplingProtocol
-} from '@airgap/coinlib-core'
+} from '@zarclays/zgap-coinlib-core'
 import BigNumber from 'bignumber.js'
 
 import { ErrorCategory, handleErrorSentry } from '../../services/sentry-error-handler/sentry-error-handler'

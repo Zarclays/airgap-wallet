@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import { AirGapMarketWallet } from '@airgap/coinlib-core'
-import { TimeInterval } from '@airgap/coinlib-core/wallet/AirGapMarketWallet'
+import { AirGapMarketWallet } from '@zarclays/zgap-coinlib-core'
+import { TimeInterval } from '@zarclays/zgap-coinlib-core/wallet/AirGapMarketWallet'
 import { WalletStorageService } from '../storage/storage'
 
 export enum CachingServiceKey {

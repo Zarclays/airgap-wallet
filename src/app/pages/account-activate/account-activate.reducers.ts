@@ -1,6 +1,6 @@
-import { flattened, UIResource, UIResourceStatus } from '@airgap/angular-core'
-import { AirGapMarketWallet, ProtocolSymbols } from '@airgap/coinlib-core'
-import { AirGapWalletStatus } from '@airgap/coinlib-core/wallet/AirGapWallet'
+import { flattened, UIResource, UIResourceStatus } from '@zarclays/zgap-angular-core'
+import { AirGapMarketWallet, ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
+import { AirGapWalletStatus } from '@zarclays/zgap-coinlib-core/wallet/AirGapWallet'
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store'
 
 import * as fromRoot from '../../app.reducers'

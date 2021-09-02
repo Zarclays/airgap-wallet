@@ -1,4 +1,4 @@
-import { ClipboardService } from '@airgap/angular-core'
+import { ClipboardService } from '@zarclays/zgap-angular-core'
 import { Component, AfterViewInit } from '@angular/core'
 import { ModalController } from '@ionic/angular'
 

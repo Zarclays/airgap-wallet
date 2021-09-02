@@ -1,12 +1,12 @@
-import { AmountConverterPipe } from '@airgap/angular-core'
+import { AmountConverterPipe } from '@zarclays/zgap-angular-core'
 import { DecimalPipe } from '@angular/common'
 import * as moment from 'moment'
 import { FormBuilder, Validators } from '@angular/forms'
 import { TranslateService } from '@ngx-translate/core'
-import { CosmosProtocol } from '@airgap/coinlib-core'
-import { CosmosUnbondingDelegation, CosmosValidator } from '@airgap/coinlib-core/protocols/cosmos/CosmosNodeClient'
-import { CosmosDelegationActionType } from '@airgap/coinlib-core/protocols/cosmos/CosmosProtocol'
-import { DelegateeDetails, DelegatorAction, DelegatorDetails } from '@airgap/coinlib-core/protocols/ICoinDelegateProtocol'
+import { CosmosProtocol } from '@zarclays/zgap-coinlib-core'
+import { CosmosUnbondingDelegation, CosmosValidator } from '@zarclays/zgap-coinlib-core/protocols/cosmos/CosmosNodeClient'
+import { CosmosDelegationActionType } from '@zarclays/zgap-coinlib-core/protocols/cosmos/CosmosProtocol'
+import { DelegateeDetails, DelegatorAction, DelegatorDetails } from '@zarclays/zgap-coinlib-core/protocols/ICoinDelegateProtocol'
 import BigNumber from 'bignumber.js'
 import {
   AirGapDelegateeDetails,

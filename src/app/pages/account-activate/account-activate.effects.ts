@@ -1,5 +1,5 @@
-import { ProtocolService, UIResourceStatus } from '@airgap/angular-core'
-import { AirGapMarketWallet, ICoinProtocol, ProtocolSymbols } from '@airgap/coinlib-core'
+import { ProtocolService, UIResourceStatus } from '@zarclays/zgap-angular-core'
+import { AirGapMarketWallet, ICoinProtocol, ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { Actions, createEffect, ofType } from '@ngrx/effects'

@@ -1,4 +1,4 @@
-import { AirGapMarketWallet, AirGapWalletStatus, EthereumProtocol } from '@airgap/coinlib-core'
+import { AirGapMarketWallet, AirGapWalletStatus, EthereumProtocol } from '@zarclays/zgap-coinlib-core'
 import BigNumber from 'bignumber.js'
 
 import { PriceServiceMock } from './wallet-mock'

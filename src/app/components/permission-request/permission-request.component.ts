@@ -1,5 +1,5 @@
 import { PermissionScope } from '@airgap/beacon-sdk'
-import { AirGapMarketWallet, AirGapWalletStatus, NetworkType, ProtocolNetwork, ProtocolSymbols } from '@airgap/coinlib-core'
+import { AirGapMarketWallet, AirGapWalletStatus, NetworkType, ProtocolNetwork, ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core'
 import { AlertController, ModalController } from '@ionic/angular'
 import { TranslateService } from '@ngx-translate/core'

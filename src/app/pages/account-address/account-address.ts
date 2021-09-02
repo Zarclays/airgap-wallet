@@ -1,8 +1,8 @@
-import { ClipboardService } from '@airgap/angular-core'
+import { ClipboardService } from '@zarclays/zgap-angular-core'
 import { Component } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { NavController } from '@ionic/angular'
-import { AirGapMarketWallet } from '@airgap/coinlib-core'
+import { AirGapMarketWallet } from '@zarclays/zgap-coinlib-core'
 
 import { AccountProvider } from 'src/app/services/account/account.provider'
 

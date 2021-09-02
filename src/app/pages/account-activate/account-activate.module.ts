@@ -1,4 +1,4 @@
-// import { AirGapAngularCoreModule } from '@airgap/angular-core'
+// import { AirGapAngularCoreModule } from '@zarclays/zgap-angular-core'
 // import { AirGapAngularNgRxModule } from '@airgap/angular-ngrx'
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'

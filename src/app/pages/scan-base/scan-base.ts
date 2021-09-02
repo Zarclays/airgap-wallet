@@ -1,4 +1,4 @@
-import { PermissionsService, PermissionStatus, PermissionTypes, QrScannerService } from '@airgap/angular-core'
+import { PermissionsService, PermissionStatus, PermissionTypes, QrScannerService } from '@zarclays/zgap-angular-core'
 import { Platform } from '@ionic/angular'
 import { ZXingScannerComponent } from '@zxing/ngx-scanner'
 

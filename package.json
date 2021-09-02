@@ -1,8 +1,8 @@
 {
-  "name": "airgap-wallet",
+  "name": "@zarclays/zgap-wallet",
   "version": "0.0.1",
-  "author": "Papers GmbH <contact@papers.ch> (https://papers.ch)",
-  "homepage": "https://www.airgap.it",
+  "author": "Zarclays <info@zarclays.com> (https://zgap.zarclays.com)",
+  "homepage": "https://www.zgap.zarclays.com",
   "private": true,
   "scripts": {
     "ng": "ng",
@@ -29,7 +29,7 @@
     "e2e-test-ci": "npm run e2e-update && protractor ./test-config/protractor-ci.conf.js",
     "e2e-update": "webdriver-manager update --standalone false --gecko false",
     "postinstall": "node config/patch_crypto.js && npm run browserify-coinlib && jetifier && node apply-diagnostic-modules.js",
-    "browserify-coinlib": "browserify ./node_modules/@airgap/coinlib-core/index.js -s airgapCoinLib -o ./src/assets/libs/airgap-coin-lib.browserify.js",
+    "browserify-coinlib": "browserify ./node_modules/@zarclays/zgap-coinlib-core/index.js -s airgapCoinLib -o ./src/assets/libs/airgap-coin-lib.browserify.js",
     "prettier": "prettier --write \"src/**/*.ts\" \"src/**/*.js\" \"test/**/*.js\"",
     "remove-sapling": "replace './assets/sapling/sapling-' './assets/no-sapling-web/sapling-' ./src/app/app.component.ts",
     "electron": "npm --prefix electron/ run start",
@@ -51,9 +51,7 @@
     }
   },
   "dependencies": {
-    "@airgap/angular-core": "0.0.15",
     "@airgap/beacon-sdk": "2.2.10",
-    "@airgap/coinlib-core": "^0.11.7",
     "@airgap/sapling-wasm": "0.0.6",
     "@angular/animations": "^11.2.9",
     "@angular/common": "^11.2.9",
@@ -86,6 +84,8 @@
     "@types/ledgerhq__hw-transport-u2f": "^4.21.1",
     "@types/ledgerhq__hw-transport-webusb": "^4.70.0",
     "@walletconnect/client": "^1.4.1",
+    "@zarclays/zgap-angular-core": "0.0.24",
+    "@zarclays/zgap-coinlib-core": "^0.11.11",
     "@zondax/ledger-polkadot": "^0.13.6",
     "@zxing/browser": "0.0.8",
     "@zxing/library": "^0.18.4",

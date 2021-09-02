@@ -8,8 +8,8 @@ import {
   IACMessageType,
   IAirGapTransaction,
   MainProtocolSymbols
-} from '@airgap/coinlib-core'
-import { RawEthereumTransaction } from '@airgap/coinlib-core/serializer/types'
+} from '@zarclays/zgap-coinlib-core'
+import { RawEthereumTransaction } from '@zarclays/zgap-coinlib-core/serializer/types'
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { AlertController, ModalController } from '@ionic/angular'

@@ -1,5 +1,5 @@
-import { AddressService } from '@airgap/angular-core'
-import { ICoinProtocol } from '@airgap/coinlib-core'
+import { AddressService } from '@zarclays/zgap-angular-core'
+import { ICoinProtocol } from '@zarclays/zgap-coinlib-core'
 import { FormControl } from '@angular/forms'
 
 export class AddressValidator {

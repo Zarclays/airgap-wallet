@@ -1,4 +1,4 @@
-import { PERMISSIONS_PLUGIN, PermissionStatus, APP_INFO_PLUGIN, AppInfoPlugin } from '@airgap/angular-core'
+import { PERMISSIONS_PLUGIN, PermissionStatus, APP_INFO_PLUGIN, AppInfoPlugin } from '@zarclays/zgap-angular-core'
 import { Inject, Injectable } from '@angular/core'
 import {
   PermissionResult,
@@ -10,7 +10,7 @@ import {
 } from '@capacitor/core'
 import { ModalController, Platform, ToastController } from '@ionic/angular'
 import { TranslateService } from '@ngx-translate/core'
-import { AirGapMarketWallet } from '@airgap/coinlib-core'
+import { AirGapMarketWallet } from '@zarclays/zgap-coinlib-core'
 import { ReplaySubject } from 'rxjs'
 import { take } from 'rxjs/operators'
 import { PUSH_NOTIFICATIONS_PLUGIN } from 'src/app/capacitor-plugins/injection-tokens'

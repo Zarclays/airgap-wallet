@@ -1,5 +1,5 @@
-import { AddressService } from '@airgap/angular-core'
-import { ProtocolSymbols } from '@airgap/coinlib-core'
+import { AddressService } from '@zarclays/zgap-angular-core'
+import { ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import { Component } from '@angular/core'
 import { AlertController, NavParams, PopoverController } from '@ionic/angular'
 import { AlertOptions } from '@ionic/core'

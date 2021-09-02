@@ -1,4 +1,4 @@
-import { PermissionStatus } from '@airgap/angular-core'
+import { PermissionStatus } from '@zarclays/zgap-angular-core'
 
 import { newSpy } from './unit-test-helper'
 

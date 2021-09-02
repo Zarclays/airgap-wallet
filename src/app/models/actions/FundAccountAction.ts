@@ -1,5 +1,5 @@
-import { AirGapMarketWallet, MainProtocolSymbols } from '@airgap/coinlib-core'
-import { Action } from '@airgap/coinlib-core/actions/Action'
+import { AirGapMarketWallet, MainProtocolSymbols } from '@zarclays/zgap-coinlib-core'
+import { Action } from '@zarclays/zgap-coinlib-core/actions/Action'
 import { Router } from '@angular/router'
 import { AccountProvider } from 'src/app/services/account/account.provider'
 import { DataService, DataServiceKey } from 'src/app/services/data/data.service'

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
-import { AirGapMarketWallet, IAirGapTransaction, IACMessageType, generateId, IACMessageDefinitionObjectV3 } from '@airgap/coinlib-core'
+import { AirGapMarketWallet, IAirGapTransaction, IACMessageType, generateId, IACMessageDefinitionObjectV3 } from '@zarclays/zgap-coinlib-core'
 import BigNumber from 'bignumber.js'
 
 import { AlertController, LoadingController } from '@ionic/angular'

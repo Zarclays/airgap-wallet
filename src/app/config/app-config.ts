@@ -1,4 +1,4 @@
-import { AppConfig } from '@airgap/angular-core'
+import { AppConfig } from '@zarclays/zgap-angular-core'
 
 export const appConfig: AppConfig = {
   app: {

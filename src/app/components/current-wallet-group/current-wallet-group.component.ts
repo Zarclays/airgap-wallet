@@ -1,4 +1,4 @@
-import { AirGapWalletStatus } from '@airgap/coinlib-core/wallet/AirGapWallet'
+import { AirGapWalletStatus } from '@zarclays/zgap-coinlib-core/wallet/AirGapWallet'
 import { Component } from '@angular/core'
 import { Observable } from 'rxjs'
 import { first, map } from 'rxjs/operators'

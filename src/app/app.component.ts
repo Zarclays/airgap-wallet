@@ -10,7 +10,7 @@ import {
   SerializerService,
   SPLASH_SCREEN_PLUGIN,
   STATUS_BAR_PLUGIN
-} from '@airgap/angular-core'
+} from '@zarclays/zgap-angular-core'
 import {
   AirGapMarketWallet,
   generateId,
@@ -29,13 +29,13 @@ import {
   TezosProtocolOptions,
   TezosSaplingExternalMethodProvider,
   TezosShieldedTezProtocol
-} from '@airgap/coinlib-core'
+} from '@zarclays/zgap-coinlib-core'
 import {
   TezosSaplingProtocolOptions,
   TezosShieldedTezProtocolConfig
-} from '@airgap/coinlib-core/protocols/tezos/sapling/TezosSaplingProtocolOptions'
+} from '@zarclays/zgap-coinlib-core/protocols/tezos/sapling/TezosSaplingProtocolOptions'
 import { HttpClient } from '@angular/common/http'
-import { TezosDomains } from '@airgap/coinlib-core/protocols/tezos/domains/TezosDomains'
+import { TezosDomains } from '@zarclays/zgap-coinlib-core/protocols/tezos/domains/TezosDomains'
 import { AfterViewInit, Component, Inject, NgZone } from '@angular/core'
 import { Router } from '@angular/router'
 import { AppPlugin, AppUrlOpen, SplashScreenPlugin, StatusBarPlugin, StatusBarStyle } from '@capacitor/core'

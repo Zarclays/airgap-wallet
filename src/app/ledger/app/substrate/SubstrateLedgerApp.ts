@@ -1,19 +1,19 @@
-import { AirGapMarketWallet, AirGapWalletStatus, SubstrateProtocol } from '@airgap/coinlib-core'
+import { AirGapMarketWallet, AirGapWalletStatus, SubstrateNetwork, SubstrateProtocol } from '@zarclays/zgap-coinlib-core'
 import {
   SubstrateSignature,
   SubstrateSignatureType
-} from '@airgap/coinlib-core/protocols/substrate/helpers/data/transaction/SubstrateSignature'
-import { SubstrateTransaction } from '@airgap/coinlib-core/protocols/substrate/helpers/data/transaction/SubstrateTransaction'
-import { RawSubstrateTransaction } from '@airgap/coinlib-core/serializer/types'
-import { AirGapWalletPriceService } from '@airgap/coinlib-core/wallet/AirGapMarketWallet'
+} from '@zarclays/zgap-coinlib-core/protocols/substrate/common/data/transaction/SubstrateSignature'
+import { SubstrateTransaction } from '@zarclays/zgap-coinlib-core/protocols/substrate/common/data/transaction/SubstrateTransaction'
+import { RawSubstrateTransaction } from '@zarclays/zgap-coinlib-core/serializer/types'
+import { AirGapWalletPriceService } from '@zarclays/zgap-coinlib-core/wallet/AirGapMarketWallet'
 import { ResponseAddress, ResponseBase, ResponseSign, SubstrateApp } from '@zondax/ledger-polkadot'
 import { Buffer } from 'buffer'
 
 import { ReturnCode } from '../../ReturnCode'
 import { LedgerApp } from '../LedgerApp'
 
-export abstract class SubstrateLedgerApp extends LedgerApp {
-  protected abstract readonly protocol: SubstrateProtocol
+export abstract class  SubstrateLedgerApp<Network extends SubstrateNetwork> extends LedgerApp {
+  protected abstract readonly protocol: SubstrateProtocol<Network>
 
   protected abstract getApp(): SubstrateApp
 

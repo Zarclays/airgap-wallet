@@ -1,4 +1,4 @@
-import { AirGapMarketWallet } from '@airgap/coinlib-core'
+import { AirGapMarketWallet } from '@zarclays/zgap-coinlib-core'
 
 export function createAccountId(wallet: AirGapMarketWallet): string
 export function createAccountId(protocolIdentifier: string, publicKey: string): string

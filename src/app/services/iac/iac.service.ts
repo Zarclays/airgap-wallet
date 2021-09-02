@@ -7,7 +7,7 @@ import {
   ProtocolService,
   RelayMessage,
   UiEventElementsService
-} from '@airgap/angular-core'
+} from '@zarclays/zgap-angular-core'
 import { BeaconMessageType, SigningType, SignPayloadResponseInput } from '@airgap/beacon-sdk'
 import { Inject, Injectable } from '@angular/core'
 import {
@@ -19,7 +19,7 @@ import {
   MainProtocolSymbols,
   MessageSignResponse,
   ProtocolSymbols
-} from '@airgap/coinlib-core'
+} from '@zarclays/zgap-coinlib-core'
 import { Router } from '@angular/router'
 
 import { AccountSync } from '../../types/AccountSync'

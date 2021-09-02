@@ -1,4 +1,4 @@
-import { APP_PLUGIN } from '@airgap/angular-core'
+import { APP_PLUGIN } from '@zarclays/zgap-angular-core'
 import { Inject, Injectable } from '@angular/core'
 import { AppPlugin, BrowserPlugin } from '@capacitor/core'
 import { Platform } from '@ionic/angular'

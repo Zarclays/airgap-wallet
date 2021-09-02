@@ -1,4 +1,4 @@
-import { ProtocolSymbols } from '@airgap/coinlib-core'
+import { ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import BigNumber from 'bignumber.js'

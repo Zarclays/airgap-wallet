@@ -1,9 +1,9 @@
-import { ProtocolService } from '@airgap/angular-core'
+import { ProtocolService } from '@zarclays/zgap-angular-core'
 import { animate, style, transition, trigger } from '@angular/animations'
 import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { AlertController, ModalController } from '@ionic/angular'
-import { AirGapMarketWallet, ICoinProtocol } from '@airgap/coinlib-core'
-import { ProtocolSymbols } from '@airgap/coinlib-core'
+import { AirGapMarketWallet, ICoinProtocol } from '@zarclays/zgap-coinlib-core'
+import { ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import { BigNumber } from 'bignumber.js'
 
 import { ProtocolSelectPage } from '../../pages/protocol-select/protocol-select'

@@ -1,10 +1,10 @@
-import { ProtocolService } from '@airgap/angular-core'
+import { ProtocolService } from '@zarclays/zgap-angular-core'
 import { Component, NgZone } from '@angular/core'
 import { Router } from '@angular/router'
 import { AlertController, LoadingController, ModalController } from '@ionic/angular'
 import { TranslateService } from '@ngx-translate/core'
-import { AirGapMarketWallet, AirGapWalletStatus, EthereumProtocol, FeeDefaults, ICoinProtocol } from '@airgap/coinlib-core'
-import { MainProtocolSymbols, ProtocolSymbols, SubProtocolSymbols } from '@airgap/coinlib-core'
+import { AirGapMarketWallet, AirGapWalletStatus, EthereumProtocol, FeeDefaults, ICoinProtocol } from '@zarclays/zgap-coinlib-core'
+import { MainProtocolSymbols, ProtocolSymbols, SubProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import { BigNumber } from 'bignumber.js'
 import { OperationsProvider } from 'src/app/services/operations/operations'
 
@@ -15,7 +15,7 @@ import { ErrorCategory, handleErrorSentry } from '../../services/sentry-error-ha
 import { WalletStorageKey, WalletStorageService } from '../../services/storage/storage'
 
 import { ExchangeSelectPage } from './../exchange-select/exchange-select.page'
-import { NetworkType } from '@airgap/coinlib-core/utils/ProtocolNetwork'
+import { NetworkType } from '@zarclays/zgap-coinlib-core/utils/ProtocolNetwork'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { BehaviorSubject, Subject } from 'rxjs'
 import { PriceService } from 'src/app/services/price/price.service'

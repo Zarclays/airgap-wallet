@@ -1,4 +1,4 @@
-import { ProtocolSymbols } from '@airgap/coinlib-core'
+import { ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import { createAction, props } from '@ngrx/store'
 
 import { AirGapMarketWalletGroup } from '../../models/AirGapMarketWalletGroup'

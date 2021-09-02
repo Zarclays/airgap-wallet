@@ -1,4 +1,4 @@
-import { TezosSaplingExternalMethodProvider, TezosSaplingTransaction } from '@airgap/coinlib-core'
+import { TezosSaplingExternalMethodProvider, TezosSaplingTransaction } from '@zarclays/zgap-coinlib-core'
 import { SaplingPartialOutputDescription, SaplingUnsignedSpendDescription } from '@airgap/sapling-wasm'
 import { Inject, Injectable } from '@angular/core'
 import { Platform } from '@ionic/angular'

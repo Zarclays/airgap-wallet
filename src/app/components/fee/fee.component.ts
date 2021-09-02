@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core'
 import { FormGroup } from '@angular/forms'
-import { AirGapMarketWallet, MainProtocolSymbols } from '@airgap/coinlib-core'
+import { AirGapMarketWallet, MainProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 
 @Component({
   selector: 'fee',
