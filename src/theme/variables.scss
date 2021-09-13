@@ -1,8 +1,26 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+ion-header {
+    background: #424242;
+    color: #ffffff;
+}
+.inner-scroll {
+    color: #f4f5f8;
+    background: #424242;
+}
+ion-title {
+    --color: #fff;
+}
+
+
 /** Ionic CSS Variables **/
 :root {
+	--ion-toolbar-background:#424242;
+	
+	--ion-background-color: #424242;
+    --ion-text-color: #ffffff;
+
   /** primary **/
   --ion-color-primary: #00e8cc;
   --ion-color-primary-rgb: 0, 232, 204;
