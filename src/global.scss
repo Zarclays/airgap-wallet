@@ -10,13 +10,9 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
-:root {
-	--ion-toolbar-background:#424242;
-	}
-
 /* forces the paragraph size */
 p {
-  font-size: 14px;
+  font-size: 13.5px;
 }
 
 /* forces the ion-label size */
@@ -103,7 +99,7 @@ pre {
 
 ion-list-header {
   ion-label {
-    font-size: 14px;
+    font-size: 14px;    color: #1442a8;
   }
 }
 

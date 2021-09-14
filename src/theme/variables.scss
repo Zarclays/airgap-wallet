@@ -1,33 +1,55 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
-ion-header {
-    background: #424242;
-    color: #ffffff;
-}
-.inner-scroll {
-    color: #f4f5f8;
-    background: #424242;
-}
-ion-title {
-    --color: #fff;
+ion-button {
+--ion-color-primary: #ffffff;
 }
 
+ion-label{
+--ion-text-color:#1442a8;
+}
+
+ion-fab-button{
+--ion-color-secondary:#1442a8;    
+--ion-color-secondary-contrast: #fff;
+}
+
+ion-fab ion-button{
+--ion-color-secondary:#fff;  
+--ion-color-secondary-contrast:#1442a8;
+}
+
+ion-footer ion-toolbar{
+--ion-toolbar-background:#1442a8;
+}
+
+ion-tabs ion-text{
+--ion-color-secondary:#fff;  
+}
+
+ion-item ion-icon{
+--ion-text-color-rgb: 20, 66, 168;
+}
+.alert-head {
+    background:#eef7fe;
+}
+.alert-message {
+    padding-top: 15px !important;
+}
 
 /** Ionic CSS Variables **/
 :root {
-	--ion-toolbar-background:#424242;
+	--ion-toolbar-background:#eef7fe;
+	--ion-toolbar-color:#1442a8;
+	--ion-text-color: #777575;
 	
-	--ion-background-color: #424242;
-    --ion-text-color: #ffffff;
-
   /** primary **/
-  --ion-color-primary: #00e8cc;
-  --ion-color-primary-rgb: 0, 232, 204;
-  --ion-color-primary-contrast: #311b58;
-  --ion-color-primary-contrast-rgb: 49, 27, 88;
-  --ion-color-primary-shade: #00ccb4;
-  --ion-color-primary-tint: #1aead1;
+  --ion-color-primary: #1442a8;
+  --ion-color-primary-rgb: 20, 66, 168;
+  --ion-color-primary-contrast: #1b5058;
+  --ion-color-primary-contrast-rgb: 27, 80, 88;
+  --ion-color-primary-shade: #2158d4;
+  --ion-color-primary-tint: #1f63f9;
 
   /** secondary **/
   --ion-color-secondary: #311b58;
