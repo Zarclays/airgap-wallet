@@ -20,7 +20,10 @@ ion-fab ion-button{
 }
 
 ion-footer ion-toolbar{
---ion-toolbar-background:#1442a8;
+	border-top:1px solid #1442a833;
+}
+ion-footer ion-button{
+--ion-color-primary:#1442a8;
 }
 
 ion-tabs ion-text{
@@ -30,16 +33,28 @@ ion-tabs ion-text{
 ion-item ion-icon{
 --ion-text-color-rgb: 20, 66, 168;
 }
+ion-button ion-icon{
+--ion-text-color-rgb: 20, 66, 168;
+}
 .alert-head {
-    background:#eef7fe;
+	border-bottom:1px solid #1442a833;
+	color:#1442a8;
+}
+.alert-title {
+    color: #1442a8;
 }
 .alert-message {
     padding-top: 15px !important;
 }
 
+ion-toolbar{
+	border-bottom:1px solid #1442a833;
+
+}
+
 /** Ionic CSS Variables **/
 :root {
-	--ion-toolbar-background:#eef7fe;
+	--ion-toolbar-background:#ffffff;
 	--ion-toolbar-color:#1442a8;
 	--ion-text-color: #777575;
 	
