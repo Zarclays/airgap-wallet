@@ -1,6 +1,13 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+ion-content {
+  --ion-background-color: linear-gradient(180deg, #fff, 40%, #517ee314 100%);
+  --ion-text-color: #817f7f;
+}
+ion-item{
+background:#fff;
+}
 ion-button {
 --ion-color-primary: #ffffff;
 }
