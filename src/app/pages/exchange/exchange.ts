@@ -35,6 +35,7 @@ interface ExchangeFormState<T> {
   dirty: boolean
 }
 interface ExchangeState {
+  fromWalletBalance: BigNumber | null
   feeDefaults: FeeDefaults
   feeCurrentMarketPrice: number | null
   disableFeeSlider: boolean
@@ -155,7 +156,7 @@ export class ExchangePage {
         }
       })
       .catch((err) => {
-        console.log(err)
+        console.error(err)
         this.showLoadingErrorAlert()
       })
   }
@@ -188,6 +189,7 @@ export class ExchangePage {
 
   private initState(): void {
     this._state = {
+      fromWalletBalance: null,
       feeDefaults: {
         low: '0',
         medium: '0',
@@ -238,7 +240,6 @@ export class ExchangePage {
 
   private onStateUpdated(newState: ExchangeState): void {
     this.state = newState
-    console.log('onStateUpdated', newState, this.state)
 
     this.updateTransactionForm({
       fee: this.state.fee,
@@ -252,9 +253,7 @@ export class ExchangePage {
   }
 
   public onChanges(): void {
-    console.log('onChanges')
     this.state$.pipe(debounceTime(200)).subscribe((state: ExchangeState) => {
-      console.log('state$')
       this.onStateUpdated(state)
     })
 
@@ -367,7 +366,7 @@ export class ExchangePage {
       this.walletList.some(
         (wallet: AirGapMarketWallet) =>
           wallet.protocol.identifier === supportedProtocol &&
-          (!filterZeroBalance || (filterZeroBalance && wallet.currentBalance.isGreaterThan(0)))
+          (!filterZeroBalance || (filterZeroBalance && wallet.getCurrentBalance().isGreaterThan(0)))
       )
     )
     const tzbtcIndex: number = result.indexOf(SubProtocolSymbols.XTZ_BTC)
@@ -529,6 +528,9 @@ export class ExchangePage {
     // Only set wallet if it's another protocol or not available
     if (this.shouldReplaceActiveWallet(this.fromWallet, this.supportedFromWallets)) {
       this.fromWallet = this.supportedFromWallets[0]
+      this.updateState({
+        fromWalletBalance: this.fromWallet?.getCurrentBalance()
+      })
     }
   }
 
@@ -546,7 +548,7 @@ export class ExchangePage {
       (wallet) =>
         wallet.protocol.identifier === protocol &&
         wallet.protocol.options.network.type === NetworkType.MAINNET &&
-        (!filterZeroBalance || wallet.currentBalance.isGreaterThan(0))
+        (!filterZeroBalance || wallet.getCurrentBalance().isGreaterThan(0))
     )
   }
 
@@ -726,6 +728,7 @@ export class ExchangePage {
 
   private reduceState(currentState: ExchangeState, newState: Partial<Omit<ExchangeState, 'lastUpdated'>>): ExchangeState {
     return {
+      fromWalletBalance: newState.fromWalletBalance !== undefined ? newState.fromWalletBalance : currentState.fromWalletBalance,
       feeDefaults: newState.feeDefaults || currentState.feeDefaults,
       feeCurrentMarketPrice:
         newState.feeCurrentMarketPrice !== undefined ? newState.feeCurrentMarketPrice : currentState.feeCurrentMarketPrice,

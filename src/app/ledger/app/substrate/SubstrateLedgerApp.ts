@@ -1,14 +1,19 @@
-import { AirGapMarketWallet, AirGapWalletStatus, SubstrateNetwork, SubstrateProtocol } from '@zarclays/zgap-coinlib-core'
+import {
+  AirGapCoinWallet,
+  AirGapMarketWallet,
+  AirGapWalletPriceService,
+  AirGapWalletStatus,
+  RawSubstrateTransaction,
+  SubstrateNetwork,
+  SubstrateProtocol,
+  SubstrateTransaction
+} from '@zarclays/zgap-coinlib-core'
 import { SubstrateSignatureType } from '@zarclays/zgap-coinlib-core/protocols/substrate/common/data/transaction/SubstrateSignature'
-import { SubstrateTransaction } from '@zarclays/zgap-coinlib-core/protocols/substrate/common/data/transaction/SubstrateTransaction'
 import {
   SubstrateCompatSignatureType,
   substrateSignatureFactory
 } from '@zarclays/zgap-coinlib-core/protocols/substrate/compat/SubstrateCompatSignature'
-import { RawSubstrateTransaction } from '@zarclays/zgap-coinlib-core/serializer/types'
-import { AirGapWalletPriceService } from '@zarclays/zgap-coinlib-core/wallet/AirGapMarketWallet'
-import { ResponseAddress, ResponseBase, ResponseSign, SubstrateApp } from '@zondax/ledger-polkadot'
-import { Buffer } from 'buffer'
+import { ResponseAddress, ResponseBase, ResponseSign, SubstrateApp } from '@zondax/ledger-substrate'
 
 import { ReturnCode } from '../../ReturnCode'
 import { LedgerApp } from '../LedgerApp'
@@ -27,7 +32,7 @@ export abstract class SubstrateLedgerApp<Network extends SubstrateNetwork> exten
       const response: ResponseAddress = await app.getAddress(account, change, addressIndex, true)
 
       return response.return_code === ReturnCode.SUCCESS
-        ? new AirGapMarketWallet(
+        ? new AirGapCoinWallet(
             this.protocol,
             response.pubKey,
             false,

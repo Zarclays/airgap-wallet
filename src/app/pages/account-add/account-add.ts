@@ -1,16 +1,25 @@
 import { ProtocolService } from '@zarclays/zgap-angular-core'
+import { ICoinProtocol, MainProtocolSymbols, ProtocolSymbols, SubProtocolSymbols } from '@zarclays/zgap-coinlib-core'
+import { NetworkType } from '@zarclays/zgap-coinlib-core/utils/ProtocolNetwork'
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { Platform } from '@ionic/angular'
 import { ICoinProtocol } from '@zarclays/zgap-coinlib-core'
-import { MainProtocolSymbols, SubProtocolSymbols } from '@zarclays/zgap-coinlib-core'
-import { NetworkType } from '@zarclays/zgap-coinlib-core/utils/ProtocolNetwork'
 
 import { AccountProvider } from '../../services/account/account.provider'
 import { DataService, DataServiceKey } from '../../services/data/data.service'
 import { LedgerService } from '../../services/ledger/ledger-service'
 import { ErrorCategory, handleErrorSentry } from '../../services/sentry-error-handler/sentry-error-handler'
+import { GenericSubProtocolSymbol } from '../../types/GenericProtocolSymbols'
 import { AccountImportInteractionType } from '../account-import-interaction-selection/account-import-interaction-selection'
+
+interface GenericSubProtocol {
+  name: string
+  identifier: GenericSubProtocolSymbol
+  symbol: string
+  mainIdentifier: MainProtocolSymbols
+  network?: string
+}
 
 @Component({
   selector: 'page-account-add',
@@ -22,17 +31,21 @@ export class AccountAddPage {
   public supportedAccountProtocols: ICoinProtocol[] = []
   public featuredSubAccountProtocols: ICoinProtocol[] = []
   public otherSubAccountProtocols: ICoinProtocol[] = []
+  public genericSubAccountProtocols: GenericSubProtocol[] = [
+    {
+      name: 'account-add.generic.xtz_label',
+      identifier: GenericSubProtocolSymbol.XTZ_FA,
+      symbol: 'XTZ',
+      mainIdentifier: MainProtocolSymbols.XTZ
+    }
+  ]
+
   public filteredAccountProtocols: ICoinProtocol[] = []
   public filteredFeaturedSubAccountProtocols: ICoinProtocol[] = []
   public filteredOtherSubAccountProtocols: ICoinProtocol[] = []
+  public filteredGenericSubAccountProtocols: GenericSubProtocol[] = []
 
-  private featuredSubProtocols: SubProtocolSymbols[] = [
-    SubProtocolSymbols.XTZ_KT,
-    SubProtocolSymbols.XTZ_BTC,
-    SubProtocolSymbols.XTZ_USD,
-    SubProtocolSymbols.XTZ_STKR,
-    SubProtocolSymbols.ETH_ERC20_XCHF
-  ]
+  private featuredSubProtocols: SubProtocolSymbols[] = [SubProtocolSymbols.XTZ_YOU, SubProtocolSymbols.XTZ_UUSD, SubProtocolSymbols.XTZ_UDEFI]
 
   constructor(
     private readonly platform: Platform,
@@ -41,26 +54,26 @@ export class AccountAddPage {
     private readonly router: Router,
     private readonly ledgerService: LedgerService,
     private readonly dataService: DataService
-  ) {}
+  ) { }
 
   public async ionViewWillEnter() {
     this.supportedAccountProtocols = (await this.protocolService.getActiveProtocols()).filter(
-      protocol => protocol.options.network.type === NetworkType.MAINNET
+      (protocol) => protocol.options.network.type === NetworkType.MAINNET
     )
     const supportedSubAccountProtocols = Array.prototype.concat.apply(
       [],
-      await Promise.all(Object.values(MainProtocolSymbols).map(protocol => this.protocolService.getSubProtocols(protocol)))
+      await Promise.all(Object.values(MainProtocolSymbols).map((protocol) => this.protocolService.getSubProtocols(protocol)))
     )
 
     this.featuredSubAccountProtocols = supportedSubAccountProtocols.filter(
-      protocol =>
+      (protocol) =>
         this.featuredSubProtocols.includes(protocol.identifier.toLowerCase()) &&
         protocol.options.network.type === NetworkType.MAINNET &&
         protocol.identifier !== SubProtocolSymbols.XTZ_KT
     )
 
     this.otherSubAccountProtocols = supportedSubAccountProtocols.filter(
-      protocol =>
+      (protocol) =>
         !this.featuredSubProtocols.includes(protocol.identifier.toLowerCase()) &&
         protocol.options.network.type === NetworkType.MAINNET &&
         protocol.identifier !== SubProtocolSymbols.XTZ_KT
@@ -76,13 +89,19 @@ export class AccountAddPage {
     const lowerCaseSearchTerm = this.searchTerm.toLowerCase()
 
     this.filteredAccountProtocols = this.supportedAccountProtocols.filter(
-      protocol => protocol.name.toLowerCase().includes(lowerCaseSearchTerm) || protocol.symbol.toLowerCase().includes(lowerCaseSearchTerm)
+      (protocol) => protocol.name.toLowerCase().includes(lowerCaseSearchTerm) || protocol.symbol.toLowerCase().includes(lowerCaseSearchTerm)
     )
     this.filteredFeaturedSubAccountProtocols = this.featuredSubAccountProtocols.filter(
-      protocol => protocol.name.toLowerCase().includes(lowerCaseSearchTerm) || protocol.symbol.toLowerCase().includes(lowerCaseSearchTerm)
+      (protocol) => protocol.name.toLowerCase().includes(lowerCaseSearchTerm) || protocol.symbol.toLowerCase().includes(lowerCaseSearchTerm)
     )
     this.filteredOtherSubAccountProtocols = this.otherSubAccountProtocols.filter(
-      protocol => protocol.name.toLowerCase().includes(lowerCaseSearchTerm) || protocol.symbol.toLowerCase().includes(lowerCaseSearchTerm)
+      (protocol) => protocol.name.toLowerCase().includes(lowerCaseSearchTerm) || protocol.symbol.toLowerCase().includes(lowerCaseSearchTerm)
+    )
+    this.filteredGenericSubAccountProtocols = this.genericSubAccountProtocols.filter(
+      (protocol) =>
+        protocol.name.toLowerCase().includes(lowerCaseSearchTerm) ||
+        protocol.identifier.toLowerCase().includes(lowerCaseSearchTerm) ||
+        protocol.mainIdentifier.toLowerCase().includes(lowerCaseSearchTerm)
     )
   }
 
@@ -96,24 +115,38 @@ export class AccountAddPage {
   }
 
   public addSubAccount(subProtocol: ICoinProtocol) {
-    const mainProtocolIdentifier = subProtocol.identifier.split('-')[0]
-    if (
+    const mainProtocolIdentifier = subProtocol.identifier.split('-')[0] as MainProtocolSymbols
+    if (this.mainAccountExists(mainProtocolIdentifier, subProtocol.options.network.identifier)) {
+      this.router
+        .navigateByUrl(`/sub-account-import/${DataServiceKey.PROTOCOL}/${subProtocol.identifier}/${subProtocol.options.network.identifier}`)
+        .catch((err) => console.error(err))
+    } else {
+      this.showOnboarding(subProtocol.identifier)
+    }
+  }
+
+  public addGenericSubAccount(customSubProtocol: GenericSubProtocol) {
+    if (this.mainAccountExists(customSubProtocol.mainIdentifier, customSubProtocol.network)) {
+      this.router
+        .navigateByUrl(
+          `/sub-account-add-generic/${DataServiceKey.PROTOCOL}/${customSubProtocol.mainIdentifier}/${customSubProtocol.network}/${customSubProtocol.identifier}`
+        )
+        .catch((err) => console.error(err))
+    } else {
+      this.showOnboarding(customSubProtocol.mainIdentifier)
+    }
+  }
+
+  private mainAccountExists(protocolIdentifier: MainProtocolSymbols, networkIdentifier?: string): boolean {
+    return (
       this.accountProvider
         .getWalletList()
         .filter(
-          wallet =>
-            wallet.protocol.identifier === mainProtocolIdentifier &&
-            wallet.protocol.options.network.identifier === subProtocol.options.network.identifier
+          (wallet) =>
+            wallet.protocol.identifier === protocolIdentifier &&
+            (!networkIdentifier || wallet.protocol.options.network.identifier === networkIdentifier)
         ).length > 0
-    ) {
-      this.router
-        .navigateByUrl(`/sub-account-import/${DataServiceKey.PROTOCOL}/${subProtocol.identifier}/${subProtocol.options.network.identifier}`)
-        .catch(err => console.error(err))
-    } else {
-      this.router
-        .navigateByUrl(`/account-import-onboarding/${DataServiceKey.PROTOCOL}/${subProtocol.identifier}`)
-        .catch(handleErrorSentry(ErrorCategory.NAVIGATION))
-    }
+    )
   }
 
   private showImportInteractionSelection(protocol: ICoinProtocol) {
@@ -145,11 +178,19 @@ export class AccountAddPage {
   }
 
   private importFromVault(protocol: ICoinProtocol): void {
-    const url: string = this.accountProvider.hasInactiveWallets(protocol)
-      ? `/account-activate/${DataServiceKey.PROTOCOL}/${protocol.identifier}`
-      : `/account-import-onboarding/${DataServiceKey.PROTOCOL}/${protocol.identifier}`
+    if (this.accountProvider.hasInactiveWallets(protocol)) {
+      this.router
+        .navigateByUrl(`/account-activate/${DataServiceKey.PROTOCOL}/${protocol.identifier}`)
+        .catch(handleErrorSentry(ErrorCategory.NAVIGATION))
+    } else {
+      this.showOnboarding(protocol.identifier)
+    }
+  }
 
-    this.router.navigateByUrl(url).catch(handleErrorSentry(ErrorCategory.NAVIGATION))
+  private showOnboarding(protocolIdentifier: ProtocolSymbols) {
+    this.router
+      .navigateByUrl(`/account-import-onboarding/${DataServiceKey.PROTOCOL}/${protocolIdentifier}`)
+      .catch(handleErrorSentry(ErrorCategory.NAVIGATION))
   }
 
   public navigateToScan() {

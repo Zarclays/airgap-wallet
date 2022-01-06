@@ -4,6 +4,7 @@ import {
   BaseIACService,
   ClipboardService,
   DeeplinkService,
+  IACMessageTransport,
   ProtocolService,
   RelayMessage,
   UiEventElementsService
@@ -12,6 +13,7 @@ import { BeaconMessageType, SigningType, SignPayloadResponseInput } from '@airga
 import { Inject, Injectable } from '@angular/core'
 import {
   AccountShareResponse,
+  AirGapCoinWallet,
   AirGapMarketWallet,
   AirGapWalletStatus,
   IACMessageDefinitionObject,
@@ -34,6 +36,7 @@ import { WalletconnectService } from '../walletconnect/walletconnect.service'
 import { AddressHandler } from './custom-handlers/address-handler'
 import { BeaconHandler } from './custom-handlers/beacon-handler'
 import { WalletConnectHandler } from './custom-handlers/walletconnect-handler'
+import { transportToInteractionSetting } from 'src/app/models/AirGapMarketWalletGroup'
 
 @Injectable({
   providedIn: 'root'
@@ -80,14 +83,14 @@ export class IACService extends BaseIACService {
     this.router.navigateByUrl('/interaction-selection/' + DataServiceKey.INTERACTION).catch(handleErrorSentry(ErrorCategory.NAVIGATION))
   }
 
-  public async handleWalletSync(deserializedSyncs: IACMessageDefinitionObject[]): Promise<boolean> {
+  public async handleWalletSync(deserializedSyncs: IACMessageDefinitionObject[], transport: IACMessageTransport): Promise<boolean> {
     this.storageSerivce.set(WalletStorageKey.DEEP_LINK, true).catch(handleErrorSentry(ErrorCategory.STORAGE))
 
     const accountSyncs: AccountSync[] = await Promise.all(
       deserializedSyncs.map(async (deserializedSync: IACMessageDefinitionObject) => {
         const accountShare: AccountShareResponse = deserializedSync.payload as AccountShareResponse
         const protocol = await this.protocolService.getProtocol(deserializedSync.protocol)
-        const wallet: AirGapMarketWallet = new AirGapMarketWallet(
+        const wallet: AirGapMarketWallet = new AirGapCoinWallet(
           protocol,
           accountShare.publicKey,
           accountShare.isExtendedPublicKey,
@@ -104,12 +107,11 @@ export class IACService extends BaseIACService {
         return {
           wallet,
           groupId: accountShare.groupId,
-          groupLabel: accountShare.groupLabel
+          groupLabel: accountShare.groupLabel,
+          interactionSetting: transportToInteractionSetting(transport)
         }
       })
     )
-
-    console.log(accountSyncs)
 
     if (this.router) {
       this.dataService.setData(DataServiceKey.SYNC_ACCOUNTS, accountSyncs)

@@ -12,7 +12,7 @@ import { ErrorCategory, handleErrorSentry } from '../../services/sentry-error-ha
 import { ProtocolService } from '@zarclays/zgap-angular-core'
 import BigNumber from 'bignumber.js'
 import { AirGapWallet, AirGapWalletStatus } from '@zarclays/zgap-coinlib-core/wallet/AirGapWallet'
-import { map } from 'rxjs/operators'
+import { map, take } from 'rxjs/operators'
 
 interface WalletGroup {
   mainWallet: AirGapMarketWallet
@@ -70,7 +70,7 @@ export class PortfolioPage {
     wallets
       .filter((wallet: AirGapWallet) => wallet.status === AirGapWalletStatus.ACTIVE)
       .forEach((wallet: AirGapMarketWallet) => {
-        const isSubProtocol: boolean = (wallet.protocol as any as ICoinSubProtocol).isSubProtocol
+        const isSubProtocol: boolean = ((wallet.protocol as any) as ICoinSubProtocol).isSubProtocol
         const identifier: string = isSubProtocol ? wallet.protocol.identifier.split('-')[0] : wallet.protocol.identifier
 
         const walletKey: string = `${wallet.publicKey}_${identifier}`
@@ -135,8 +135,6 @@ export class PortfolioPage {
       : {
           wallet: mainWallet
         }
-
-    console.log(info)
     this.router
       .navigateByUrl(
         `/account-transaction-list/${DataServiceKey.ACCOUNTS}/${info.wallet.publicKey}/${info.wallet.protocol.identifier}/${info.wallet.addressIndex}`
@@ -152,7 +150,7 @@ export class PortfolioPage {
     this.operationsProvider.refreshAllDelegationStatuses(this.walletsProvider.getWalletList())
 
     const observables = [
-      this.walletsProvider.getWalletList().map((wallet) => {
+      this.walletsProvider.getWalletList().filter(wallet => wallet.status === AirGapWalletStatus.ACTIVE).map((wallet) => {
         return from(wallet.synchronize())
       })
     ]
@@ -165,6 +163,7 @@ export class PortfolioPage {
 
     this.subscription = allWalletsSynced.subscribe(() => {
       this.calculateTotal(this.walletsProvider.getWalletList(), event ? event.target : null)
+      this.wallets.pipe(take(1)).subscribe(wallets => this.refreshWalletGroups(wallets))
     })
   }
 
@@ -174,9 +173,9 @@ export class PortfolioPage {
     this.total = (
       await Promise.all(
         wallets.map((wallet) =>
-          cryptoToFiatPipe.transform(wallet.currentBalance, {
+          cryptoToFiatPipe.transform(wallet.getCurrentBalance(), {
             protocolIdentifier: wallet.protocol.identifier,
-            currentMarketPrice: wallet.currentMarketPrice
+            currentMarketPrice: wallet.getCurrentMarketPrice()
           })
         )
       )

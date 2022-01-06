@@ -27,10 +27,10 @@ export class TabsPage {
   constructor(
     public modalController: ModalController,
     private readonly storageProvider: WalletStorageService,
-    private readonly plaftorm: Platform
+    private readonly platform: Platform
   ) {
     this.showIntroductions().catch(handleErrorSentry(ErrorCategory.OTHER))
-    this.isMobile = this.plaftorm.is('mobile')
+    this.isMobile = this.platform.is('android') || this.platform.is('ios')
   }
 
   private async showIntroductions() {
@@ -47,7 +47,7 @@ export class TabsPage {
   private async showModal(settingsKey: WalletStorageKey, page: any): Promise<void> {
     const introduction = await this.storageProvider.get(settingsKey)
     if (!introduction) {
-      return new Promise<void>(async resolve => {
+      return new Promise<void>(async (resolve) => {
         const modal = await this.modalController.create({
           component: page
         })

@@ -6,7 +6,7 @@ import { AirGapMarketWallet, ICoinProtocol } from '@zarclays/zgap-coinlib-core'
 import { ImportAccoutActionContext } from '@zarclays/zgap-coinlib-core/actions/GetKtAccountsAction'
 import { TezosProtocolNetwork } from '@zarclays/zgap-coinlib-core'
 import { ProtocolNetwork } from '@zarclays/zgap-coinlib-core/utils/ProtocolNetwork'
-import { MainProtocolSymbols, SubProtocolSymbols } from '@zarclays/zgap-coinlib-core'
+import {  SubProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import { supportsDelegation } from 'src/app/helpers/delegation'
 import { ButtonAction } from 'src/app/models/actions/ButtonAction'
 import { BrowserService } from 'src/app/services/browser/browser.service'
@@ -130,7 +130,7 @@ export class AccountEditPopoverComponent implements OnInit {
         },
         {
           text: 'Ok',
-          handler: async data => {
+          handler: async (data) => {
             await this.walletsProvider.setWalletNetwork(this.wallet, this.networks[data] as TezosProtocolNetwork)
             this.cdr.detectChanges()
             await this.dismissPopover()
@@ -147,8 +147,8 @@ export class AccountEditPopoverComponent implements OnInit {
   }
 
   private async initNetworks(): Promise<void> {
-    if (this.wallet.protocol.identifier === MainProtocolSymbols.XTZ) {
+    // if (this.wallet.protocol.identifier === MainProtocolSymbols.XTZ) {
       this.networks = await this.protocolService.getNetworksForProtocol(this.wallet.protocol.identifier)
+    // }
     }
   }
-}

@@ -1,15 +1,13 @@
 import { AirGapMarketWallet, IACMessageType, IAirGapTransaction, UnsignedTransaction } from '@zarclays/zgap-coinlib-core'
 import { Component } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute } from '@angular/router'
 
 import BigNumber from 'bignumber.js'
-
 import { AccountProvider } from '../../services/account/account.provider'
 import { BrowserService } from '../../services/browser/browser.service'
 import { DataService, DataServiceKey } from '../../services/data/data.service'
 import { ExchangeProvider } from '../../services/exchange/exchange'
 import { OperationsProvider } from '../../services/operations/operations'
-import { ErrorCategory, handleErrorSentry } from '../../services/sentry-error-handler/sentry-error-handler'
 
 @Component({
   selector: 'page-exchange-confirm',
@@ -42,7 +40,6 @@ export class ExchangeConfirmPage {
   public unsignedTransaction?: UnsignedTransaction
 
   constructor(
-    private readonly router: Router,
     private readonly exchangeProvider: ExchangeProvider,
     private readonly route: ActivatedRoute,
     private readonly operationsProvider: OperationsProvider,
@@ -66,12 +63,12 @@ export class ExchangeConfirmPage {
       this.amountExpectedFrom = info.amountExpectedFrom
       this.amountExpectedTo = info.amountExpectedTo
 
-      this.feeFiatAmount = new BigNumber(this.fee).multipliedBy(this.fromWallet.currentMarketPrice).toString()
-      this.fromFiatAmount = new BigNumber(this.amountExpectedFrom).multipliedBy(this.fromWallet.currentMarketPrice).toNumber()
-      this.toFiatAmount = new BigNumber(this.amountExpectedTo).multipliedBy(this.toWallet.currentMarketPrice).toNumber()
+      this.feeFiatAmount = new BigNumber(this.fee).multipliedBy(this.fromWallet.getCurrentMarketPrice()).toString()
+      this.fromFiatAmount = new BigNumber(this.amountExpectedFrom).multipliedBy(this.fromWallet.getCurrentMarketPrice()).toNumber()
+      this.toFiatAmount = new BigNumber(this.amountExpectedTo).multipliedBy(this.toWallet.getCurrentMarketPrice()).toNumber()
     }
 
-    this.exchangeProvider.getActiveExchange().subscribe(exchange => {
+    this.exchangeProvider.getActiveExchange().subscribe((exchange) => {
       this.activeExchange = exchange
     })
   }
@@ -83,7 +80,8 @@ export class ExchangeConfirmPage {
         : await this.prepareTransactionAndGetInteractionInfo()
 
       this.dataService.setData(DataServiceKey.INTERACTION, info)
-      this.router.navigateByUrl('/interaction-selection/' + DataServiceKey.INTERACTION).catch(handleErrorSentry(ErrorCategory.NAVIGATION))
+
+      this.accountProvider.startInteraction(info.wallet, info.data, info.type, info.airGapTxs)
     } catch (error) {
       //
     }
@@ -112,7 +110,7 @@ export class ExchangeConfirmPage {
         amount,
         fee,
         this.accountProvider.getWalletList(),
-        this.memo
+      { memo: this.memo }
       )
 
     return {

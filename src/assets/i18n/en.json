@@ -3,6 +3,7 @@
     "title": "Account",
     "transactions_label": "Transactions",
     "add-tokens_label": "Add Tokens",
+    "collectibles_label": "Collectibles",
     "import-accounts_label": "Import Accounts",
     "delegate_label": "Delegation",
     "undelegate_label": "Undelegate",
@@ -11,6 +12,7 @@
     "migrate_label": "Migrate Balance",
     "delegation-status_label": "Delegation",
     "fund_label": "Fund Account",
+    "load_more": "Load more",
     "pending-transactions": {
       "label": "Pending Transactions",
       "text": "Pending transactions are currently not enabled, please refer to the blockexplorer.",
@@ -102,7 +104,10 @@
   },
   "account-add": {
     "featured": "Featured",
-    "others": "Others"
+    "others": "More Assets",
+    "generic": {
+      "xtz_label": "Add Unlisted Tezos Asset"
+    }
   },
   "scan": {
     "title": "Scan QR",
@@ -151,12 +156,16 @@
     },
     "dapp": {
       "label": "Dapps",
-      "settings_label": "Beacon Settings",
+      "settings_label": "Dapp Settings",
       "about_label": "About Beacon",
       "permission-list_label": "Dapp Permissions"
     },
     "qr-advanced-settings_label": "Advanced QR Settings",
-    "health-check": "API Health Check"
+    "health-check": "API Health Check",
+    "interaction": {
+      "label": "Interaction Setting",
+      "text": "Vault and Wallet Interaction Settings"
+    }
   },
   "qr-settings-page": {
     "title": "QR Settings"
@@ -238,6 +247,7 @@
   "transaction-qr": {
     "title": "Transaction QR",
     "text": "Open <span class=\"style__strong color__primary\">ZGap Vault</span> and scan this transaction in order to sign it.",
+    "scan_qr_label": "Scan QR",
     "done_label": "Done",
     "details": "Display details"
   },
@@ -249,6 +259,23 @@
     "offline-device_label": "Offline Device",
     "offline-device_info": "ZGap Vault is installed on an offline device, scan the QR code with ZGap Wallet."
   },
+
+  "interaction-selection-settings":{
+    "title":"Wallet Interaction",
+    "same-device_heading":"Looks like you're using <span class=\"style__strong color__primary\">AirGap Vault</span> and AirGap Wallet on the <span class=\"style__strong color__primary\">same device</span>.",
+    "offline-device_heading":"Looks like you’re using <span class=\"style__strong color__primary\">AirGap Vault</span> on an <span class=\"style__strong color__primary\">offline device</span>.",
+    "text":"You can define where you have AirGap Wallet installed to make the interaction with the Vault a bit simpler.",
+    "selector": {
+      "always":"Always ask",
+      "same-device":"Vault and Wallet on the same device",
+      "offline-device":"Vault is an offline device",
+      "ledger":"Wallet pairs with Ledger"
+    },
+    "confirm_label":"Confirm",
+    "description":"You can always change your preference in the Settings Tab",
+    "button_text": "Edit"
+  },
+  
   "interaction-selection-desktop": {
     "title": "Select Signer Option",
     "heading": "Select the device to sign this transaction",
@@ -272,7 +299,7 @@
   },
   "account-activate": {
     "title": "Add Accounts",
-    "message": "Select <strong>{{ protocol }}</strong> accounts to add. TODO: import more from ZGap Vault",
+    "message": "Select <strong>{{ protocol }}</strong> accounts to add.",
     "add-accounts_label": "Add Accounts"
   },
   "signed-transaction": {
@@ -315,6 +342,14 @@
     },
     "add-accounts_label": "Add {{ typeLabel }}",
     "no-imports_text": "No {{ typeLabel }} found to import."
+  },
+  "add-generic-sub-account": {
+    "title": "Add {{ genericSubProtocolName }}",
+    "add-button_label": "Add Asset",
+    "xtz-fa": {
+      "name": "Unlisted Tezos Asset"
+    },
+    "unsupported_text": "Can't add selected sub account."
   },
   "sub-account-select": {
     "title": "Select Account",
@@ -635,6 +670,12 @@
     },
     "undelegate-all": {
       "label": "Undelegate All"
+    },
+    "alert": {
+      "collator-oversubscribed": {
+        "title": "This collator is oversubscribed",
+        "description": "Collators can only pay out to {{ maxNominators }} nominators per round. If more than {{ maxNominators }} nominators nominate the same collator, only the top {{ maxNominators }} staked nominators are paid rewards. Currently, the minimum staking amount eligible for rewards from this collator is <span class=\"style__strong\">{{ minStakingAmount }}</span>."
+    }
     }
   },
   "introduction-push": {
@@ -762,12 +803,18 @@
       "yes_label": "Yes"
     }
   },
-  "settings-beacon": {
-    "title": "Beacon Settings",
+  "dapp-settings": {
+    "title": "Dapp Settings",
     "remove-all_label": "Remove All",
     "delete_label": "Delete",
     "no-peers": "Not connected to any peers",
-    "reset": "Reset"
+    "reset": "Reset", 
+    "alert": {
+      "heading": "Remove All",
+      "message": "Are you sure you want to remove all peers?",
+      "cancel" : "Cancel", 
+      "confirm": "Confirm"
+    }
   },
   
   "walletconnect": {
@@ -797,5 +844,68 @@
   "dapp-confirm": {
     "title": "Confirm Walletconnect Request",
     "text": "Do you want to confirm the walletconnect request?"
+  },
+  "tezos-fa-form": {
+    "header": "Provide Tezos contract details to add an unlisted Tezos asset.",
+    "contract-address_label": "Contract Address",
+    "network_label": "Network",
+    "token-interface_label": "FA Standard",
+    "token": {
+      "label": "Asset",
+      "placeholder": "Select Asset"
+    },
+    "paste_label": "Paste",
+    "error": {
+      "contract-not-found": "Contract not found, check if the address and network are correct.",
+      "interface-unknown": "Unable to determine the interface of the contract, please specify one.",
+      "token-metadata-missing": "Unable to fetch the asset metadata.",
+      "token-vague": "The address is a multi asset contract, please specify the asset you want to add.",
+      "unknown": "Unkown error has occurred."
+  }
+  },
+  "collectibles-list": {
+    "title": "Collectibles",
+    "load-more_label": "Load more",
+    "empty-state_text": "Aww..<br>Looks like you don't have any collectibles yet. Go to <strong><a href='https://objkt.com' target='blank'>objkt.com</a></strong> and start collecting.",
+    "error": {
+      "loading": {
+        "message": "Unable to load collectibles"
+      },
+      "show-details": {
+        "message": "Unable to show the collectible's details"
+      },
+      "unknown": {
+        "message": "Unknown error"
+      }
+    }
+  },
+  "collectibles-item": {
+    "title": "Collectibles Details",
+    "details_label": "Details",
+    "amount_label": "Amount",
+    "more-details_label": "More Details",
+    "send-button_label": "Send",
+    "address": {
+      "contract_label": "Related Contract"
+    },
+    "error": {
+      "loading": {
+        "message": "Unable to load the collectible's details"
+      },
+      "open-url": {
+        "message": "Unable to open URL"
+      },
+      "send": {
+        "message": "Unable to prepare transfer"
+      },
+      "unknown": {
+        "message": "Unknown error"
+      }
+    }
+  },
+  "objkt-collectible-explorer": {
+    "more-details": {
+      "view-on": "View on objkt.com"
+    }
   }
 }

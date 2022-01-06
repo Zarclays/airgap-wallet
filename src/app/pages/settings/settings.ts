@@ -1,8 +1,9 @@
 import { ClipboardService, SerializerService, IACMessageTransport } from '@zarclays/zgap-angular-core'
 import { Component, Inject } from '@angular/core'
 import { Router } from '@angular/router'
-import { SharePlugin } from '@capacitor/core'
-import { AlertController, ModalController, Platform } from '@ionic/angular'
+import { Capacitor } from '@capacitor/core'
+import { SharePlugin } from '@capacitor/share'
+import { AlertController, ModalController } from '@ionic/angular'
 import { SHARE_PLUGIN } from 'src/app/capacitor-plugins/injection-tokens'
 import { BrowserService } from 'src/app/services/browser/browser.service'
 import { IACService } from 'src/app/services/iac/iac.service'
@@ -15,8 +16,9 @@ import { IntroductionPage } from '../introduction/introduction'
   templateUrl: 'settings.html'
 })
 export class SettingsPage {
+  public readonly platform: string = Capacitor.getPlatform()
+
   constructor(
-    public readonly platform: Platform,
     public readonly alertCtrl: AlertController,
     public readonly serializerService: SerializerService,
     private readonly router: Router,
@@ -28,15 +30,15 @@ export class SettingsPage {
   ) {}
 
   public about(): void {
-    this.router.navigateByUrl('/about').catch(handleErrorSentry(ErrorCategory.NAVIGATION))
+    this.navigate('/about')
   }
 
   public dappPermissions(): void {
-    this.router.navigateByUrl('/dapp-permission-list').catch(handleErrorSentry(ErrorCategory.NAVIGATION))
+    this.navigate('/dapp-permission-list')
   }
 
   public dappSettings(): void {
-    this.router.navigateByUrl('/settings-beacon').catch(handleErrorSentry(ErrorCategory.NAVIGATION))
+    this.navigate('/dapp-settings')
   }
 
   public share(): void {
@@ -110,13 +112,20 @@ export class SettingsPage {
   }
 
   public goToQrSettings(): void {
-    this.router.navigateByUrl('/qr-settings').catch(handleErrorSentry(ErrorCategory.NAVIGATION))
+    this.navigate('/qr-settings')
   }
 
   public goToHealthCheck(): void {
-    this.router.navigateByUrl('/health-check').catch(handleErrorSentry(ErrorCategory.NAVIGATION))
+    this.navigate('/health-check')
   }
 
+  public goToWalletInteraction(): void {
+    this.navigate('/interaction-selection-settings')
+  }
+
+  private navigate(url: string) {
+    this.router.navigateByUrl(url, { replaceUrl: true }).catch(handleErrorSentry(ErrorCategory.NAVIGATION))
+  }
   public pasteClipboard(): void {
     this.clipboardProvider.paste().then(
       (text: string) => {

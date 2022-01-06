@@ -64,11 +64,17 @@ export class SwapComponent {
   @Output()
   private readonly amountSetEmitter: EventEmitter<string> = new EventEmitter()
 
+  public selectedWalletBalance: BigNumber | undefined
+  public selectedWalletMarketPrice: BigNumber | undefined
+
   constructor(
     public alertCtrl: AlertController,
     public modalController: ModalController,
     private readonly protocolService: ProtocolService
-  ) {}
+  ) {
+    this.selectedWalletBalance = this.selectedWallet?.getCurrentBalance()
+    this.selectedWalletMarketPrice = this.selectedWallet?.getCurrentMarketPrice()
+  }
 
   public amountSet(amount: string): void {
     this._amount = amount
@@ -81,11 +87,13 @@ export class SwapComponent {
   }
 
   public async doRadio(): Promise<void> {
-    const protocols: ICoinProtocol[] = (await Promise.all(
-      this.supportedProtocols.map(async (supportedProtocol: ProtocolSymbols) =>
-        this.protocolService.getProtocol(supportedProtocol).catch(() => undefined)
+    const protocols: ICoinProtocol[] = (
+      await Promise.all(
+        this.supportedProtocols.map(async (supportedProtocol: ProtocolSymbols) =>
+          this.protocolService.getProtocol(supportedProtocol).catch(() => undefined)
+        )
       )
-    )).filter((protocol: ICoinProtocol | undefined) => protocol !== undefined)
+    ).filter((protocol: ICoinProtocol | undefined) => protocol !== undefined)
 
     const modal: HTMLIonModalElement = await this.modalController.create({
       component: ProtocolSelectPage,
