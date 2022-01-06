@@ -1,49 +1,55 @@
-import { Injectable } from '@angular/core'
-import { FormBuilder } from '@angular/forms'
-import { LoadingController, ToastController } from '@ionic/angular'
+import { ProtocolService } from '@zarclays/zgap-angular-core'
+import { SignPayloadRequestOutput } from '@airgap/beacon-sdk'
 import {
   AirGapMarketWallet,
+  FeeDefaults,
   IACMessageDefinitionObjectV3,
   IACMessageType,
   IAirGapTransaction,
   ICoinDelegateProtocol,
   ICoinProtocol,
   MainProtocolSymbols,
+  SubProtocolSymbols,
+  TezosBTC,
   TezosKtProtocol,
   TezosSaplingProtocol
-} from '@zarclays/zgap-coinlib-core'
 import { CosmosTransaction } from '@zarclays/zgap-coinlib-core/protocols/cosmos/CosmosTransaction'
 import { DelegateeDetails, DelegatorAction, DelegatorDetails } from '@zarclays/zgap-coinlib-core/protocols/ICoinDelegateProtocol'
 import { FeeDefaults } from '@zarclays/zgap-coinlib-core'
 import { TezosBTC } from '@zarclays/zgap-coinlib-core'
+} from '@zarclays/zgap-coinlib-core'
+import { CosmosTransaction } from '@zarclays/zgap-coinlib-core/protocols/cosmos/CosmosTransaction'
+import { DelegateeDetails, DelegatorAction, DelegatorDetails } from '@zarclays/zgap-coinlib-core/protocols/ICoinDelegateProtocol'
+import { TezosSaplingAddress } from '@zarclays/zgap-coinlib-core/protocols/tezos/sapling/TezosSaplingAddress'
 import {
   RawAeternityTransaction,
   RawBitcoinTransaction,
   RawEthereumTransaction,
-  RawTezosTransaction,
-  RawSubstrateTransaction
+  RawSubstrateTransaction,
+  RawTezosTransaction
 } from '@zarclays/zgap-coinlib-core/serializer/types'
 import { SubProtocolSymbols } from '@zarclays/zgap-coinlib-core'
+} from '@zarclays/zgap-coinlib-core/serializer/types'
+import { Injectable } from '@angular/core'
+import { FormBuilder } from '@angular/forms'
+import { LoadingController, ToastController } from '@ionic/angular'
 import BigNumber from 'bignumber.js'
 import { BehaviorSubject } from 'rxjs'
 import { map } from 'rxjs/operators'
-import { supportsAirGapDelegation, supportsDelegation } from 'src/app/helpers/delegation'
+
+import { supportsAirGapDelegation, supportsDelegation } from '../../helpers/delegation'
 import {
   AirGapDelegateeDetails,
   AirGapDelegationDetails,
   AirGapDelegatorAction,
   AirGapDelegatorDetails
-} from 'src/app/interfaces/IAirGapCoinDelegateProtocol'
-import { UIAccountExtendedDetails } from 'src/app/models/widgets/display/UIAccountExtendedDetails'
-import { UIAccountSummary } from 'src/app/models/widgets/display/UIAccountSummary'
-import { UIRewardList } from 'src/app/models/widgets/display/UIRewardList'
-import { UIInputText } from 'src/app/models/widgets/input/UIInputText'
-
+} from '../../interfaces/IAirGapCoinDelegateProtocol'
+import { UIAccountExtendedDetails } from '../../models/widgets/display/UIAccountExtendedDetails'
+import { UIAccountSummary } from '../../models/widgets/display/UIAccountSummary'
+import { UIRewardList } from '../../models/widgets/display/UIRewardList'
+import { UIInputText } from '../../models/widgets/input/UIInputText'
+import { SaplingService } from '../sapling/sapling.service'
 import { ErrorCategory, handleErrorSentry } from '../sentry-error-handler/sentry-error-handler'
-import { ProtocolService } from '@zarclays/zgap-angular-core'
-import { SignPayloadRequestOutput } from '@airgap/beacon-sdk'
-import { TezosSaplingAddress } from '@zarclays/zgap-coinlib-core/protocols/tezos/sapling/TezosSaplingAddress'
-
 export type SerializableTx =
   | RawTezosTransaction
   | RawEthereumTransaction
@@ -62,7 +68,8 @@ export class OperationsProvider {
     private readonly loadingController: LoadingController,
     private readonly toastController: ToastController,
     private readonly formBuilder: FormBuilder,
-    private readonly protocolService: ProtocolService
+    private readonly protocolService: ProtocolService,
+    private readonly saplingService: SaplingService
   ) {}
 
   public async getDelegateesSummary(wallet: AirGapMarketWallet, delegatees: string[]): Promise<UIAccountSummary[]> {
@@ -389,7 +396,7 @@ export class OperationsProvider {
     amount: BigNumber,
     fee: BigNumber,
     knownWallets: AirGapMarketWallet[],
-    data?: any
+    data?: { [key: string]: any }
   ): Promise<{ airGapTxs: IAirGapTransaction[]; unsignedTx: any }> {
     const loader = await this.getAndShowLoader()
 
@@ -434,6 +441,7 @@ export class OperationsProvider {
           throw new Error('Invalid sapling protocol')
         }
 
+        await this.saplingService.initSapling()
         unsignedTx = await protocol.prepareShieldTransaction(wallet.publicKey, address, amount.toString(10), fee.toString(10), {
           overrideFees: true
         })
@@ -450,6 +458,16 @@ export class OperationsProvider {
           { knownViewingKeys }
         )
       } else {
+        if (wallet.protocol.identifier === MainProtocolSymbols.XTZ_SHIELDED) {
+          await this.saplingService.initSapling()
+        }
+        if (wallet.protocol.identifier === MainProtocolSymbols.BTC_SEGWIT) {
+          // data could already contain "replaceByFee"
+          if (!data) {
+            data = {}
+          }
+          data.masterFingerprint = wallet.masterFingerprint
+        }
         unsignedTx = await wallet.prepareTransaction([address], [amount.toString(10)], fee.toString(10), data)
         airGapTxs = await wallet.protocol.getTransactionDetails({
           publicKey: wallet.publicKey,
@@ -480,13 +498,18 @@ export class OperationsProvider {
     wallet: AirGapMarketWallet,
     destination: string,
     fee?: BigNumber,
-    excludeExistentialDeposit?: boolean
+    data?: { [key: string]: any }
   ): Promise<BigNumber> {
-    const maxAmount = await wallet.getMaxTransferValue([destination], fee ? fee.toFixed() : undefined, excludeExistentialDeposit)
+    const maxAmount = await wallet.getMaxTransferValue([destination], fee ? fee.toFixed() : undefined, data)
     return new BigNumber(maxAmount)
   }
 
-  public async estimateFees(wallet: AirGapMarketWallet, address: string, amount: BigNumber, data?: any): Promise<FeeDefaults> {
+  public async estimateFees(
+    wallet: AirGapMarketWallet,
+    address: string,
+    amount: BigNumber,
+    data?: { [key: string]: any }
+  ): Promise<FeeDefaults> {
     try {
       return await wallet.estimateFees([address], [amount.toFixed()], data)
     } catch (error) {

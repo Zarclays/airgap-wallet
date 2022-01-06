@@ -1,4 +1,4 @@
-import { TimeInterval } from '@zarclays/zgap-coinlib-core/wallet/AirGapMarketWallet'
+import { TimeInterval } from '@zarclays/zgap-coinlib-core'
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable } from 'rxjs'
 

@@ -91,7 +91,7 @@ export class BeaconService {
     if (network) {
       const isProtocolAvailable = await this.protocolService.isProtocolAvailable(protocol.identifier, protocol.options.network.identifier)
       if (!isProtocolAvailable) {
-        await this.protocolService.addActiveProtocol(protocol)
+        await this.protocolService.addActiveProtocols(protocol)
       }
     }
     this.storage.setCache(WalletStorageKey.PENDING_REQUEST, [request, protocol.identifier, protocol.options.network.identifier])
@@ -293,9 +293,9 @@ export class BeaconService {
         error.data && Array.isArray(error.data)
           ? `The contract returned the following error: ${error.data.find((f) => f && f.with && f.with.string).with.string}`
           : error.message
-    } catch {}
+    } catch { }
 
-    console.log('error.message', errorMessage)
+    console.error('error.message', errorMessage)
 
     await this.respond(response, request)
     await this.displayErrorPage({
@@ -307,7 +307,7 @@ export class BeaconService {
 
   public async getProtocolBasedOnBeaconNetwork(network: Network): Promise<TezosProtocol> {
     const configs: {
-      [key in Exclude<BeaconNetworkType, BeaconNetworkType.DELPHINET | BeaconNetworkType.GRANADANET>]: TezosProtocolNetwork
+      [key in Exclude<BeaconNetworkType, BeaconNetworkType.DELPHINET | BeaconNetworkType.HANGZHOUNET | BeaconNetworkType.IDIAZABALNET>]: TezosProtocolNetwork
     } = {
       [BeaconNetworkType.MAINNET]: {
         identifier: undefined,
@@ -344,6 +344,19 @@ export class BeaconService {
         extras: {
           network: TezosNetwork.FLORENCENET,
           conseilUrl: 'https://tezos-florencenet-conseil.prod.gke.papers.tech',
+          conseilNetwork: TezosNetwork.FLORENCENET,
+          conseilApiKey: 'airgap00391'
+        }
+      },
+      [BeaconNetworkType.GRANADANET]: {
+        identifier: undefined,
+        name: network.name || 'Granadanet',
+        type: NetworkType.TESTNET,
+        rpcUrl: network.rpcUrl || 'https://tezos-granadanet-node.prod.gke.papers.tech',
+        blockExplorer: new TezblockBlockExplorer('https://granadanet.tezblock.io'),
+        extras: {
+          network: TezosNetwork.FLORENCENET,
+          conseilUrl: 'https://tezos-granadanet-conseil.prod.gke.papers.tech',
           conseilNetwork: TezosNetwork.FLORENCENET,
           conseilApiKey: 'airgap00391'
         }

@@ -11,7 +11,7 @@ import {
 } from '@airgap/beacon-sdk'
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { AlertController, ModalController } from '@ionic/angular'
+import { AlertController, ModalController, ToastController } from '@ionic/angular'
 import {
   AirGapMarketWallet,
   AirGapWalletStatus,
@@ -52,6 +52,7 @@ export class BeaconRequestPage implements OnInit {
   public requesterName: string = ''
   public inputs: CheckboxInput[] = []
   public transactions: IAirGapTransaction[] | undefined | any
+  public wrappedOperation: TezosWrappedOperation | undefined
   public selectableWallets: AirGapMarketWallet[] = []
   private selectedWallet: AirGapMarketWallet | undefined
 
@@ -70,7 +71,8 @@ export class BeaconRequestPage implements OnInit {
     private readonly router: Router,
     private readonly alertController: AlertController,
     private readonly shortenStringPipe: ShortenStringPipe,
-    private readonly translateService: TranslateService
+    private readonly translateService: TranslateService,
+    private readonly toastController: ToastController
   ) {
     this.subscription = this.accountService.allWallets$.asObservable().subscribe((wallets: AirGapMarketWallet[]) => {
       this.selectableWallets = wallets.filter(
@@ -275,15 +277,14 @@ export class BeaconRequestPage implements OnInit {
     clonedRequest.id = new BigNumber(generatedId).toString() // TODO: Remove?
 
     this.responseHandler = async () => {
-      const info = {
-        wallet: selectedWallet,
-        data: clonedRequest,
-        generatedId: generatedId,
-        type: IACMessageType.MessageSignRequest
-      }
-
-      this.dataService.setData(DataServiceKey.INTERACTION, info)
-      this.router.navigateByUrl('/interaction-selection/' + DataServiceKey.INTERACTION).catch(handleErrorSentry(ErrorCategory.NAVIGATION))
+      this.accountService.startInteraction(
+        selectedWallet,
+        clonedRequest,
+        IACMessageType.MessageSignRequest,
+        undefined,
+        false,
+        generatedId
+      )
     }
   }
 
@@ -304,36 +305,45 @@ export class BeaconRequestPage implements OnInit {
       tezosProtocol = await this.beaconService.getProtocolBasedOnBeaconNetwork(request.network)
     }
 
-    let transaction: TezosWrappedOperation | undefined
     try {
-      transaction = await tezosProtocol.prepareOperations(selectedWallet.publicKey, request.operationDetails as any, false) // don't override parameters
+      this.wrappedOperation = await tezosProtocol.prepareOperations(selectedWallet.publicKey, request.operationDetails as any, false) // don't override parameters
     } catch (error) {
       await this.dismiss()
       this.beaconService.sendInvalidTransaction(request, error)
       return
     }
-    const forgedTransaction = await tezosProtocol.forgeAndWrapOperations(transaction)
+    const forgedTransaction = await tezosProtocol.forgeAndWrapOperations(this.wrappedOperation)
 
     const generatedId = generateId(8)
     await this.beaconService.addVaultRequest(request, tezosProtocol)
 
     this.transactions = await tezosProtocol.getAirGapTxFromWrappedOperations({
       branch: '',
-      contents: transaction.contents
+      contents: this.wrappedOperation.contents
     })
 
     this.responseHandler = async () => {
-      const info = {
-        wallet: selectedWallet,
-        airGapTxs: await tezosProtocol.getTransactionDetails({ publicKey: selectedWallet.publicKey, transaction: forgedTransaction }),
-        data: forgedTransaction,
-        generatedId: generatedId,
-        type: IACMessageType.TransactionSignRequest
-      }
+      const airGapTxs = await tezosProtocol.getTransactionDetails({ publicKey: selectedWallet.publicKey, transaction: forgedTransaction })
 
-      this.dataService.setData(DataServiceKey.INTERACTION, info)
-      this.router.navigateByUrl('/interaction-selection/' + DataServiceKey.INTERACTION).catch(handleErrorSentry(ErrorCategory.NAVIGATION))
+      this.accountService.startInteraction(
+        selectedWallet,
+        forgedTransaction,
+        IACMessageType.TransactionSignRequest,
+        airGapTxs,
+        false,
+        generatedId
+      )
     }
+  }
+  public async updateWrappedOperation(wrappedOperation: TezosWrappedOperation) {
+    this.request = { ...this.request, operationDetails: wrappedOperation.contents } as OperationRequestOutput
+    await this.operationRequest(this.request)
+    const toast = await this.toastController.create({
+      message: `Updated Operation Details`,
+      duration: 2000,
+      position: 'bottom'
+    })
+    toast.present()
   }
 
   private async broadcastRequest(request: BroadcastRequestOutput): Promise<void> {

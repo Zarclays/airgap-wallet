@@ -173,8 +173,11 @@ export class ExchangeProvider implements Exchange {
     pendingExchangeTxs: ExchangeTransactionDetails[],
     protocolIdentifier: ProtocolSymbols
   ): Promise<IAirGapTransaction[]> {
+    if (pendingExchangeTxs.length === 0) {
+      return []
+    }
     const protocol = await this.protocolService.getProtocol(protocolIdentifier)
-    return pendingExchangeTxs.map(tx => {
+    return pendingExchangeTxs.map((tx) => {
       const rawAmount = new BigNumber(protocolIdentifier === tx.toCurrency ? tx.amountExpectedTo : tx.amountExpectedFrom)
       const formattedAmount = rawAmount.times(10 ** protocol.decimals).toString()
       return {
@@ -204,22 +207,24 @@ export class ExchangeProvider implements Exchange {
   }
 
   private async loadPendingTranscationsFromStorage() {
-    const pendingTransactions = (await this.storageService.get(WalletStorageKey.PENDING_EXCHANGE_TRANSACTIONS)) as ExchangeTransactionDetails[]
+    const pendingTransactions = (await this.storageService.get(
+      WalletStorageKey.PENDING_EXCHANGE_TRANSACTIONS
+    )) as ExchangeTransactionDetails[]
     this.pendingTransactions = pendingTransactions ? pendingTransactions : []
     return
   }
 
   public async getExchangeTransactionsByProtocol(protocolidentifier: ProtocolSymbols, address: string): Promise<IAirGapTransaction[]> {
     const filteredByProtocol = this.pendingTransactions.filter(
-      tx => tx.fromCurrency === protocolidentifier || tx.toCurrency === protocolidentifier
+      (tx) => tx.fromCurrency === protocolidentifier || tx.toCurrency === protocolidentifier
     )
-    const filteredByAddress = filteredByProtocol.filter(tx => tx.receivingAddress === address || tx.sendingAddress === address)
+    const filteredByAddress = filteredByProtocol.filter((tx) => tx.receivingAddress === address || tx.sendingAddress === address)
     const statusPromises: Promise<{
       transaction: ExchangeTransactionDetails
       statusResponse?: ExchangeTransactionStatusResponse
-    }>[] = filteredByAddress.map(tx => {
+    }>[] = filteredByAddress.map((tx) => {
       return this.getStatusForTransaction(tx)
-        .then(result => {
+        .then((result) => {
           return { transaction: tx, statusResponse: result }
         })
         .catch(() => {
@@ -227,7 +232,7 @@ export class ExchangeProvider implements Exchange {
         })
     })
     const transactions = (await Promise.all(statusPromises))
-      .filter(result => {
+      .filter((result) => {
         if (result.statusResponse !== undefined) {
           result.transaction.status = result.statusResponse.status
           const eightHours = 8 * 3600 * 1000
@@ -246,7 +251,7 @@ export class ExchangeProvider implements Exchange {
           return false
         }
       })
-      .map(result => result.transaction)
+      .map((result) => result.transaction)
     return this.formatExchangeTxs(transactions, protocolidentifier)
   }
 }

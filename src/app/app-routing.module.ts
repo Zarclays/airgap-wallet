@@ -80,6 +80,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/sub-account-add/sub-account-add.module').then((m) => m.SubAccountAddPageModule)
   },
   {
+    path: 'sub-account-add-generic/:id/:protocolID/:networkID/:genericSubProtocolType',
+    resolve: {
+      special: DataResolverService
+    },
+    canActivate: [ProtocolGuard, ServiceKeyGuard],
+    loadChildren: () => import('./pages/sub-account-add-generic/sub-account-add-generic.module').then((m) => m.SubAccountAddGenericPageModule)
+  },
+  {
     path: 'sub-account-select/:id',
     resolve: {
       special: DataResolverService
@@ -100,7 +108,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/account-address/account-address.module').then((m) => m.AccountAddressPageModule)
   },
   {
-    path: 'transaction-prepare/:id/:publicKey/:protocolID/:addressIndex/:address/:amount/:forceMigration',
+    path: 'transaction-prepare/:id/:publicKey/:protocolID/:addressIndex/:address/:amount/:collectible/:forceMigration',
     canActivate: [ProtocolGuard, ServiceKeyGuard],
 
     loadChildren: () => import('./pages/transaction-prepare/transaction-prepare.module').then((m) => m.TransactionPreparePageModule)
@@ -152,8 +160,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/delegation-detail/delegation-detail.module').then((m) => m.DelegationDetailPageModule)
   },
   {
-    path: 'settings-beacon',
-    loadChildren: () => import('./pages/settings-beacon/settings-beacon.module').then((m) => m.SettingsBeaconPageModule)
+    path: 'dapp-settings',
+    loadChildren: () => import('./pages/dapp-settings/dapp-settings.module').then((m) => m.SettingsBeaconPageModule)
   },
   {
     path: 'delegation-list/:id',
@@ -206,6 +214,28 @@ const routes: Routes = [
   {
     path: 'dapp-confirm',
     loadChildren: () => import('./pages/dapp-confirm/dapp-confirm.module').then((m) => m.DappConfirmPageModule)
+  },
+
+  {
+    path: 'interaction-selection-settings',
+    loadChildren: () =>
+      import('./pages/interaction-selection-settings/interaction-selection-settings.module').then(
+        (m) => m.InteractionSelectionSettingsPageModule
+      )
+  },
+  {
+    path: 'collectibles-list/:id/:publicKey/:protocolID/:addressIndex',
+    resolve: {
+      special: DataResolverService
+    },
+    loadChildren: () => import('./pages/collectibles-list/collectibles-list.module').then( m => m.CollectiblesListPageModule)
+  },
+  {
+    path: 'collectibles-item/:id/:publicKey/:protocolID/:addressIndex/:collectible',
+    resolve: {
+      special: DataResolverService
+    },
+    loadChildren: () => import('./pages/collectibles-item/collectibles-item.module').then( m => m.CollectiblesItemPageModule)
   }
 ]
 @NgModule({

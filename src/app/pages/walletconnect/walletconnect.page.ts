@@ -11,15 +11,13 @@ import {
 } from '@zarclays/zgap-coinlib-core'
 import { RawEthereumTransaction } from '@zarclays/zgap-coinlib-core/serializer/types'
 import { Component, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
-import { AlertController, ModalController } from '@ionic/angular'
+import { AlertController, ModalController, ToastController } from '@ionic/angular'
 import { TranslateService } from '@ngx-translate/core'
 import WalletConnect from '@walletconnect/client'
 import BigNumber from 'bignumber.js'
 import { Subscription } from 'rxjs'
 import { AccountProvider } from 'src/app/services/account/account.provider'
 import { BeaconService } from 'src/app/services/beacon/beacon.service'
-import { DataService, DataServiceKey } from 'src/app/services/data/data.service'
 import { ErrorCategory, handleErrorSentry } from 'src/app/services/sentry-error-handler/sentry-error-handler'
 import { saveWalletConnectSession } from 'src/app/services/walletconnect/helpers'
 
@@ -68,26 +66,25 @@ export class WalletconnectPage implements OnInit {
   public description: string = ''
   public url: string = ''
   public icon: string = ''
-  public transactions: IAirGapTransaction[] | undefined
   public beaconRequest: any
-  public readonly request: JSONRPC
-  public readonly requestMethod: typeof Methods = Methods
-  private readonly connector: WalletConnect | undefined
-  private selectedWallet: AirGapMarketWallet | undefined
+  public request: JSONRPC
   public selectableWallets: AirGapMarketWallet[] = []
+  public airGapTransactions: IAirGapTransaction[] | undefined
+  public rawTransaction: RawEthereumTransaction
+  public readonly requestMethod: typeof Methods = Methods
 
   private subscription: Subscription
-
+  private selectedWallet: AirGapMarketWallet | undefined
   private responseHandler: (() => Promise<void>) | undefined
+  private readonly connector: WalletConnect | undefined
 
   constructor(
     private readonly modalController: ModalController,
-    private readonly dataService: DataService,
     private readonly accountService: AccountProvider,
-    private readonly router: Router,
     private readonly alertCtrl: AlertController,
     private readonly beaconService: BeaconService,
-    private readonly translateService: TranslateService
+    private readonly translateService: TranslateService,
+    private readonly toastController: ToastController
   ) {}
 
   public get address(): string {
@@ -128,6 +125,32 @@ export class WalletconnectPage implements OnInit {
     }
   }
 
+  public async updateRawTransaction(rawTransaction: RawEthereumTransaction) {
+    this.rawTransaction = { ...this.rawTransaction, gasPrice: rawTransaction.gasPrice, gasLimit: rawTransaction.gasLimit }
+
+    const ethereumProtocol = new EthereumProtocol()
+    this.airGapTransactions = await ethereumProtocol.getTransactionDetails({
+      publicKey: this.selectedWallet.publicKey,
+      transaction: this.rawTransaction
+    })
+
+    this.responseHandler = async () => {
+      this.accountService.startInteraction(
+        this.selectedWallet,
+        this.rawTransaction,
+        IACMessageType.TransactionSignRequest,
+        this.airGapTransactions
+      )
+    }
+    const toast = await this.toastController.create({
+      message: `Updated Transaction Details`,
+      duration: 2000,
+      position: 'bottom'
+    })
+
+    toast.present()
+  }
+
   public async done(): Promise<void> {
     if (this.responseHandler) {
       await this.responseHandler()
@@ -159,15 +182,14 @@ export class WalletconnectPage implements OnInit {
 
     this.beaconService.addVaultRequest(this.beaconRequest, protocol)
     this.responseHandler = async () => {
-      const info = {
-        wallet: this.selectedWallet,
-        data: this.beaconRequest,
-        generatedId: generatedId,
-        type: IACMessageType.MessageSignRequest
-      }
-
-      this.dataService.setData(DataServiceKey.INTERACTION, info)
-      this.router.navigateByUrl('/interaction-selection/' + DataServiceKey.INTERACTION).catch(handleErrorSentry(ErrorCategory.NAVIGATION))
+      this.accountService.startInteraction(
+        this.selectedWallet,
+        this.beaconRequest,
+        IACMessageType.MessageSignRequest,
+        undefined,
+        false,
+        generatedId
+      )
     }
   }
 
@@ -207,7 +229,7 @@ export class WalletconnectPage implements OnInit {
     const protocol = new EthereumProtocol()
     const eth = request.params[0]
 
-    const transaction: RawEthereumTransaction = {
+    this.rawTransaction = {
       nonce: eth.nonce ? eth.nonce : `0x${new BigNumber(txCount).toString(16)}`,
       gasPrice: eth.gasPrice ? eth.gasPrice : `0x${new BigNumber(gasPrice).toString(16)}`,
       gasLimit: `0x${(300000).toString(16)}`,
@@ -218,26 +240,24 @@ export class WalletconnectPage implements OnInit {
     }
 
     const walletConnectRequest = {
-      transaction: transaction,
+      transaction: this.rawTransaction,
       id: request.id
     }
 
     this.beaconService.addVaultRequest(walletConnectRequest, protocol)
-    this.transactions = await ethereumProtocol.getTransactionDetails({
+
+    this.airGapTransactions = await ethereumProtocol.getTransactionDetails({
       publicKey: this.selectedWallet.publicKey,
-      transaction
+      transaction: this.rawTransaction
     })
 
     this.responseHandler = async () => {
-      const info = {
-        wallet: this.selectedWallet,
-        airGapTxs: await ethereumProtocol.getTransactionDetails({ publicKey: this.selectedWallet.publicKey, transaction }),
-        data: transaction,
-        type: IACMessageType.TransactionSignRequest
-      }
-
-      this.dataService.setData(DataServiceKey.INTERACTION, info)
-      this.router.navigateByUrl('/interaction-selection/' + DataServiceKey.INTERACTION).catch((err) => console.error(err))
+      this.accountService.startInteraction(
+        this.selectedWallet,
+        this.rawTransaction,
+        IACMessageType.TransactionSignRequest,
+        this.airGapTransactions
+      )
     }
   }
 

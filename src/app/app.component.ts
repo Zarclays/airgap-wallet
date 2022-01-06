@@ -1,8 +1,8 @@
 import {
+  AddressService,
   AppInfoPlugin,
   APP_INFO_PLUGIN,
   APP_PLUGIN,
-  AddressService,
   ExternalAliasResolver,
   IACMessageTransport,
   LanguageService,
@@ -21,6 +21,12 @@ import {
   MainProtocolSymbols,
   NetworkType,
   TezblockBlockExplorer,
+  TezosFA1p2Protocol,
+  TezosFA2Protocol,
+  TezosFA2ProtocolConfig,
+  TezosFA2ProtocolOptions,
+  TezosFAProtocolConfig,
+  TezosFAProtocolOptions,
   TezosKtProtocol,
   TezosNetwork,
   TezosProtocol,
@@ -30,15 +36,16 @@ import {
   TezosSaplingExternalMethodProvider,
   TezosShieldedTezProtocol
 } from '@zarclays/zgap-coinlib-core'
+import { TezosDomains } from '@zarclays/zgap-coinlib-core/protocols/tezos/domains/TezosDomains'
 import {
   TezosSaplingProtocolOptions,
   TezosShieldedTezProtocolConfig
 } from '@zarclays/zgap-coinlib-core/protocols/tezos/sapling/TezosSaplingProtocolOptions'
-import { HttpClient } from '@angular/common/http'
-import { TezosDomains } from '@zarclays/zgap-coinlib-core/protocols/tezos/domains/TezosDomains'
 import { AfterViewInit, Component, Inject, NgZone } from '@angular/core'
 import { Router } from '@angular/router'
-import { AppPlugin, AppUrlOpen, SplashScreenPlugin, StatusBarPlugin, StatusBarStyle } from '@capacitor/core'
+import { AppPlugin, URLOpenListenerEvent } from '@capacitor/app'
+import { SplashScreenPlugin } from '@capacitor/splash-screen'
+import { StatusBarPlugin, Style } from '@capacitor/status-bar'
 import { Config, Platform } from '@ionic/angular'
 import { TranslateService } from '@ngx-translate/core'
 import { Subscription } from 'rxjs'
@@ -50,8 +57,9 @@ import { PushProvider } from './services/push/push'
 import { SaplingNativeService } from './services/sapling-native/sapling-native.service'
 import { ErrorCategory, handleErrorSentry, setSentryRelease, setSentryUser } from './services/sentry-error-handler/sentry-error-handler'
 import { WalletStorageKey, WalletStorageService } from './services/storage/storage'
-import { generateGUID } from './utils/utils'
 import { WalletconnectService } from './services/walletconnect/walletconnect.service'
+import { faProtocolSymbol } from './types/GenericProtocolSymbols'
+import { generateGUID } from './utils/utils'
 
 @Component({
   selector: 'app-root',
@@ -77,7 +85,6 @@ export class AppComponent implements AfterViewInit {
     private readonly dataService: DataService,
     private readonly config: Config,
     private readonly ngZone: NgZone,
-    private readonly httpClient: HttpClient,
     private readonly saplingNativeService: SaplingNativeService,
     @Inject(APP_PLUGIN) private readonly app: AppPlugin,
     @Inject(APP_INFO_PLUGIN) private readonly appInfo: AppInfoPlugin,
@@ -85,7 +92,7 @@ export class AppComponent implements AfterViewInit {
     @Inject(STATUS_BAR_PLUGIN) private readonly statusBar: StatusBarPlugin
   ) {
     this.initializeApp().catch(handleErrorSentry(ErrorCategory.OTHER))
-    this.isMobile = this.platform.is('mobile')
+    this.isMobile = this.platform.is('android') || this.platform.is('ios')
     this.isElectron = this.platform.is('electron')
   }
 
@@ -94,7 +101,7 @@ export class AppComponent implements AfterViewInit {
 
     if (this.platform.is('hybrid')) {
       await Promise.all([
-        this.statusBar.setStyle({ style: StatusBarStyle.Light }),
+        this.statusBar.setStyle({ style: Style.Light }),
         this.statusBar.setBackgroundColor({ color: '#FFFFFF' }),
         this.splashScreen.hide(),
 
@@ -139,7 +146,7 @@ export class AppComponent implements AfterViewInit {
       })
     }
     if (this.platform.is('hybrid')) {
-      this.app.addListener('appUrlOpen', (data: AppUrlOpen) => {
+      this.app.addListener('appUrlOpen', (data: URLOpenListenerEvent) => {
         this.ngZone.run(() => {
           if (data.url === 'airgap-wallet://' || data.url === 'https://wallet.airgap.it' || data.url === 'https://wallet.airgap.it/') {
             // Ignore empty deeplinks
@@ -197,34 +204,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   private async initializeProtocols(): Promise<void> {
-    const edonetNetwork: TezosProtocolNetwork = new TezosProtocolNetwork(
-      'Edonet',
-      NetworkType.TESTNET,
-      'https://tezos-edonet-node.prod.gke.papers.tech',
-      new TezblockBlockExplorer('https//edonet.tezblock.io'),
-      new TezosProtocolNetworkExtras(
-        TezosNetwork.EDONET,
-        'https://tezos-edonet-conseil.prod.gke.papers.tech',
-        TezosNetwork.EDONET,
-        'airgap00391'
-      )
-    )
-    const edonetProtocol: TezosProtocol = new TezosProtocol(new TezosProtocolOptions(edonetNetwork))
-
-    const florencenetNetwork: TezosProtocolNetwork = new TezosProtocolNetwork(
-      'Florencenet',
-      NetworkType.TESTNET,
-      'https://tezos-florencenet-node.prod.gke.papers.tech',
-      new TezblockBlockExplorer('https//florencenet.tezblock.io'),
-      new TezosProtocolNetworkExtras(
-        TezosNetwork.FLORENCENET,
-        'https://tezos-florencenet-conseil.prod.gke.papers.tech',
-        TezosNetwork.FLORENCENET,
-        'airgap00391'
-      )
-    )
-    const florencenetProtocol: TezosProtocol = new TezosProtocol(new TezosProtocolOptions(florencenetNetwork))
-
     const granadanetNetwork: TezosProtocolNetwork = new TezosProtocolNetwork(
       'Granadanet',
       NetworkType.TESTNET,
@@ -237,44 +216,109 @@ export class AppComponent implements AfterViewInit {
         'airgap00391'
       )
     )
-
     const granadanetProtocol: TezosProtocol = new TezosProtocol(new TezosProtocolOptions(granadanetNetwork))
 
-    const externalMethodProvider: TezosSaplingExternalMethodProvider | undefined =
-      await this.saplingNativeService.createExternalMethodProvider()
+    const hangzhounetNetwork: TezosProtocolNetwork = new TezosProtocolNetwork(
+      'Hangzhounet',
+      NetworkType.TESTNET,
+      'https://tezos-hangzhounet-node.prod.gke.papers.tech',
+      new TezblockBlockExplorer('https//hangzhounet.tezblock.io'),
+      new TezosProtocolNetworkExtras(
+        TezosNetwork.HANGZHOUNET,
+        'https://tezos-hangzhounet-conseil.prod.gke.papers.tech',
+        TezosNetwork.HANGZHOUNET,
+        'airgap00391'
+      )
+    )
+    const hangzhounetProtocol: TezosProtocol = new TezosProtocol(new TezosProtocolOptions(hangzhounetNetwork))
+
+    const externalMethodProvider:
+      | TezosSaplingExternalMethodProvider
+      | undefined = await this.saplingNativeService.createExternalMethodProvider()
 
     const shieldedTezProtocol: TezosShieldedTezProtocol = new TezosShieldedTezProtocol(
       new TezosSaplingProtocolOptions(
-        florencenetNetwork,
+        hangzhounetNetwork,
         new TezosShieldedTezProtocolConfig(undefined, undefined, undefined, externalMethodProvider)
       )
     )
 
     this.protocolService.init({
-      extraActiveProtocols: [
-        edonetProtocol, 
-        florencenetProtocol,
-        granadanetProtocol,
-        shieldedTezProtocol
-      ],
+      extraActiveProtocols: [hangzhounetProtocol, granadanetProtocol, shieldedTezProtocol],
       extraPassiveSubProtocols: [[granadanetProtocol, new TezosKtProtocol(new TezosProtocolOptions(granadanetNetwork))]]
     })
 
-    await this.initializeTezosDomains()
-    await shieldedTezProtocol.initParameters(await this.getSaplingParams('spend'), await this.getSaplingParams('output'))
+    await Promise.all([this.getGenericSubProtocols(), this.initializeTezosDomains()])
   }
 
-  private async getSaplingParams(type: 'spend' | 'output'): Promise<Buffer> {
-    if (this.platform.is('hybrid')) {
-      // Sapling params are read and used in a native plugin, there's no need to read them in the Ionic part
-      return Buffer.alloc(0)
+  private async getGenericSubProtocols(): Promise<void> {
+    const genericSubProtocols = await this.storageProvider.get(WalletStorageKey.GENERIC_SUBPROTOCOLS)
+    const identifiersWithOptions = Object.entries(genericSubProtocols)
+    const protocols = identifiersWithOptions
+      .map(([protocolNetworkIdentifier, options]) => {
+        const [protocolIdentifier,] = protocolNetworkIdentifier.split(':')
+
+        if (protocolIdentifier.startsWith(MainProtocolSymbols.XTZ)) {
+          const tezosOptions = options as TezosProtocolOptions
+          const tezosProtocolNetwork = new TezosProtocolNetwork(
+            tezosOptions.network.name,
+            tezosOptions.network.type,
+            tezosOptions.network.rpcUrl,
+            tezosOptions.network.blockExplorer,
+            new TezosProtocolNetworkExtras(
+              tezosOptions.network.extras.network,
+              tezosOptions.network.extras.conseilUrl,
+              tezosOptions.network.extras.conseilNetwork,
+              tezosOptions.network.extras.conseilApiKey
+            )
+          )
+          if (protocolIdentifier.startsWith(faProtocolSymbol('1.2'))) {
+            const faOptions = tezosOptions as TezosFAProtocolOptions
+
+            return new TezosFA1p2Protocol(
+              new TezosFAProtocolOptions(
+                tezosProtocolNetwork,
+                new TezosFAProtocolConfig(
+                  faOptions.config.contractAddress,
+                  faOptions.config.identifier,
+                  faOptions.config.symbol,
+                  faOptions.config.name,
+                  faOptions.config.marketSymbol,
+                  faOptions.config.feeDefaults,
+                  faOptions.config.decimals,
+                  faOptions.config.tokenMetadataBigMapID
+                )
+              )
+            )
+          } else if (protocolIdentifier.startsWith(faProtocolSymbol('2'))) {
+            const fa2Options = tezosOptions as TezosFA2ProtocolOptions
+
+            return new TezosFA2Protocol(
+              new TezosFA2ProtocolOptions(
+                tezosProtocolNetwork,
+                new TezosFA2ProtocolConfig(
+                  fa2Options.config.contractAddress,
+                  fa2Options.config.identifier,
+                  fa2Options.config.symbol,
+                  fa2Options.config.name,
+                  fa2Options.config.marketSymbol,
+                  fa2Options.config.feeDefaults,
+                  fa2Options.config.decimals,
+                  fa2Options.config.defaultTokenID,
+                  fa2Options.config.tokenMetadataBigMapID,
+                  fa2Options.config.ledgerBigMapID,
+                  fa2Options.config.totalSupplyBigMapID
+                )
+              )
+            )
     }
+        }
 
-    const params: ArrayBuffer = await this.httpClient
-      .get(`./assets/sapling/sapling-${type}.params`, { responseType: 'arraybuffer' })
-      .toPromise()
+        return undefined
+      })
+      .filter((protocol) => protocol !== undefined)
 
-    return Buffer.from(params)
+    await this.protocolService.addActiveSubProtocols(protocols)
   }
 
   private async initializeTezosDomains(): Promise<void> {
@@ -282,7 +326,8 @@ export class AppComponent implements AfterViewInit {
       [TezosNetwork.MAINNET]: 'KT1GBZmSxmnKJXGMdMLbugPfLyUPmuLSMwKS',
       [TezosNetwork.EDONET]: 'KT1JJbWfW8CHUY95hG9iq2CEMma1RiKhMHDR',
       [TezosNetwork.FLORENCENET]: 'KT1PfBfkfUuvQRN8zuCAyp5MHjNrQqgevS9p',
-      [TezosNetwork.GRANADANET]: ''
+      [TezosNetwork.GRANADANET]: 'KT1Ch6PstAQG32uNfQJUSL2bf2WvimvY5umk',
+      [TezosNetwork.HANGZHOUNET]: 'KT1MgQjmWMBQ4LyuMAqZccTkMSUJbEXeGqii',
     }
 
     const tezosNetworks: TezosProtocolNetwork[] = (await this.protocolService.getNetworksForProtocol(

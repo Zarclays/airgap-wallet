@@ -1,4 +1,4 @@
-import { APP_CONFIG, APP_INFO_PLUGIN, PermissionsService, PERMISSIONS_PLUGIN } from '@zarclays/zgap-angular-core'
+import { APP_CONFIG, APP_INFO_PLUGIN, APP_LAUNCHER_PLUGIN, FILESYSTEM_PLUGIN, PermissionsService } from '@zarclays/zgap-angular-core'
 import { CommonModule } from '@angular/common'
 import { HttpClientModule } from '@angular/common/http'
 import { TestModuleMetadata } from '@angular/core/testing'
@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { AlertController, IonicModule, LoadingController, NavController, Platform, ToastController } from '@ionic/angular'
 import { Storage } from '@ionic/storage'
 import { IonicStorageModule } from '@ionic/storage'
+import { StoreModule } from '@ngrx/store'
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { MomentModule } from 'ngx-moment'
 import { PUSH_NOTIFICATIONS_PLUGIN } from 'src/app/capacitor-plugins/injection-tokens'
@@ -26,13 +27,14 @@ import {
   ToastControllerMock
 } from './mocks-ionic'
 import {
-  AppInfoPluginMock,
+  AppInfoMock,
+  AppLauncherMock,
   AppMock,
   ClipboardMock,
+  FilesystemMock,
   PermissionsMock,
-  PermissionsPluginMock,
   PushNotificationsMock,
-  SaplingPluginMock,
+  SaplingNativeMock,
   SplashScreenMock,
   StatusBarMock
 } from './plugins-mock'
@@ -42,13 +44,14 @@ import { StorageMock } from './storage-mock'
 export class UnitHelper {
   public readonly mockRefs = {
     app: new AppMock(),
-    appInfoPlugin: new AppInfoPluginMock(),
+    appInfo: new AppInfoMock(),
+    appLauncher: new AppLauncherMock(),
+    filesystem: new FilesystemMock(),
     platform: new PlatformMock(),
     permissions: new PermissionsMock(),
-    permissionsPlugin: new PermissionsPluginMock(),
     permissionsProvider: new PermissionsServiceMock(),
     pushNotifications: new PushNotificationsMock(),
-    saplingPlugin: new SaplingPluginMock(),
+    saplingNative: new SaplingNativeMock(),
     statusBar: new StatusBarMock(),
     splashScreen: new SplashScreenMock(),
     clipboard: new ClipboardMock(),
@@ -76,7 +79,8 @@ export class UnitHelper {
       MomentModule,
       TranslateModule.forRoot({
         loader: { provide: TranslateLoader, useClass: TranslateFakeLoader }
-      })
+      }),
+      StoreModule.forRoot({})
     ]
     const mandatoryProviders: any[] = [
       DrawChartService,
@@ -84,9 +88,10 @@ export class UnitHelper {
       { provide: NavController, useClass: NavControllerMock },
       { provide: Platform, useValue: this.mockRefs.platform },
       { provide: PermissionsService, useValue: this.mockRefs.permissionsProvider },
-      { provide: PERMISSIONS_PLUGIN, useValue: this.mockRefs.permissionsPlugin },
       { provide: PUSH_NOTIFICATIONS_PLUGIN, useValue: this.mockRefs.pushNotifications },
-      { provide: APP_INFO_PLUGIN, useValue: this.mockRefs.appInfoPlugin },
+      { provide: APP_INFO_PLUGIN, useValue: this.mockRefs.appInfo },
+      { provide: APP_LAUNCHER_PLUGIN, useValue: this.mockRefs.appLauncher },
+      { provide: FILESYSTEM_PLUGIN, useValue: this.mockRefs.filesystem },
       { provide: APP_CONFIG, useValue: appConfig },
       { provide: ToastController, useValue: this.mockRefs.toastController },
       { provide: AlertController, useValue: this.mockRefs.alertController },
