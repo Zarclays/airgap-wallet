@@ -1,4 +1,4 @@
-import { getMainIdentifier, ProtocolService } from '@airgap/angular-core'
+import { getMainIdentifier, ProtocolService } from '@zarclays/zgap-angular-core'
 import {
   ICoinProtocol,
   MainProtocolSymbols,
@@ -6,7 +6,7 @@ import {
   TezosFA2ProtocolConfig,
   TezosFA2ProtocolOptions,
   TezosProtocolNetwork
-} from '@airgap/coinlib-core'
+} from '@zarclays/zgap-coinlib-core'
 
 import { Collectible } from '../collectibles.types'
 

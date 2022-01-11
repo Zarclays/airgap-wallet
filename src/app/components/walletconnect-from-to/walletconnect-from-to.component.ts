@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
-import { IAirGapTransaction, RawEthereumTransaction } from '@airgap/coinlib-core'
+import { IAirGapTransaction, RawEthereumTransaction } from '@zarclays/zgap-coinlib-core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import BigNumber from 'bignumber.js'
 

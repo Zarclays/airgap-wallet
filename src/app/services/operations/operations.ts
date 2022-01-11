@@ -13,14 +13,12 @@ import {
   TezosBTC,
   TezosKtProtocol,
   TezosSaplingProtocol
-import { CosmosTransaction } from '@zarclays/zgap-coinlib-core/protocols/cosmos/CosmosTransaction'
-import { DelegateeDetails, DelegatorAction, DelegatorDetails } from '@zarclays/zgap-coinlib-core/protocols/ICoinDelegateProtocol'
-import { FeeDefaults } from '@zarclays/zgap-coinlib-core'
-import { TezosBTC } from '@zarclays/zgap-coinlib-core'
 } from '@zarclays/zgap-coinlib-core'
 import { CosmosTransaction } from '@zarclays/zgap-coinlib-core/protocols/cosmos/CosmosTransaction'
-import { DelegateeDetails, DelegatorAction, DelegatorDetails } from '@zarclays/zgap-coinlib-core/protocols/ICoinDelegateProtocol'
+
 import { TezosSaplingAddress } from '@zarclays/zgap-coinlib-core/protocols/tezos/sapling/TezosSaplingAddress'
+
+import { DelegateeDetails, DelegatorAction, DelegatorDetails } from '@zarclays/zgap-coinlib-core/protocols/ICoinDelegateProtocol'
 import {
   RawAeternityTransaction,
   RawBitcoinTransaction,
@@ -28,8 +26,8 @@ import {
   RawSubstrateTransaction,
   RawTezosTransaction
 } from '@zarclays/zgap-coinlib-core/serializer/types'
-import { SubProtocolSymbols } from '@zarclays/zgap-coinlib-core'
-} from '@zarclays/zgap-coinlib-core/serializer/types'
+
+
 import { Injectable } from '@angular/core'
 import { FormBuilder } from '@angular/forms'
 import { LoadingController, ToastController } from '@ionic/angular'

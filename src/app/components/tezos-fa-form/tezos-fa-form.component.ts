@@ -1,5 +1,5 @@
-import { BaseComponent, UIResourceStatus } from '@airgap/angular-core'
-import { ICoinProtocol } from '@airgap/coinlib-core'
+import { BaseComponent, UIResourceStatus } from '@zarclays/zgap-angular-core'
+import { ICoinProtocol } from '@zarclays/zgap-coinlib-core'
 import { Component, EventEmitter, Inject, Output } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { debounceTime, takeUntil } from 'rxjs/operators'

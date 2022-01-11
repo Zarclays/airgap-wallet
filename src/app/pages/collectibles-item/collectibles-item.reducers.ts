@@ -1,5 +1,5 @@
-import { generateGUID, UIAction, UIActionStatus, UIResource, UIResourceStatus } from '@airgap/angular-core'
-import { AirGapMarketWallet, ProtocolSymbols } from '@airgap/coinlib-core'
+import { generateGUID, UIAction, UIActionStatus, UIResource, UIResourceStatus } from '@zarclays/zgap-angular-core'
+import { AirGapMarketWallet, ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store'
 
 import * as fromRoot from '../../app.reducers'

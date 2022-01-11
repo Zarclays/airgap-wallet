@@ -1,4 +1,4 @@
-import { MainProtocolSymbols } from '@airgap/coinlib-core'
+import { MainProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import Transport from '@ledgerhq/hw-transport'
 import TransportU2F from '@ledgerhq/hw-transport-u2f'
 import TransportWebHID from '@ledgerhq/hw-transport-webhid'

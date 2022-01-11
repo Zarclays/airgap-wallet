@@ -1,4 +1,4 @@
-import { BaseComponent, UIResourceStatus } from '@airgap/angular-core'
+import { BaseComponent, UIResourceStatus } from '@zarclays/zgap-angular-core'
 import { Component, Inject } from '@angular/core'
 
 import { CollectiblesItemFacade, CollectiblesItemNgRxFacade, COLLECTIBLES_ITEM_FACADE } from './collectibles-item.facade'

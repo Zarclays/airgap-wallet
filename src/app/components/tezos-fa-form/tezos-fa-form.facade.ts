@@ -1,6 +1,6 @@
-import { BaseFacade, ClipboardService, UIResource } from '@airgap/angular-core'
-import { BaseNgRxFacade } from '@airgap/angular-ngrx'
-import { ICoinProtocol, ProtocolNetwork } from '@airgap/coinlib-core'
+import { BaseFacade, ClipboardService, UIResource } from '@zarclays/zgap-angular-core'
+import { BaseNgRxFacade } from '@zarclays/zgap-angular-ngrx'
+import { ICoinProtocol, ProtocolNetwork } from '@zarclays/zgap-coinlib-core'
 import { Injectable, InjectionToken } from '@angular/core'
 import { Observable } from 'rxjs'
 

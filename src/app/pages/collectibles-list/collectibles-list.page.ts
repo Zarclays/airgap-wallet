@@ -1,4 +1,4 @@
-import { BaseComponent, UIResource, UIResourceStatus } from '@airgap/angular-core'
+import { BaseComponent, UIResource, UIResourceStatus } from '@zarclays/zgap-angular-core'
 import { Component, Inject, ViewChild } from '@angular/core'
 import { IonInfiniteScroll, Platform } from '@ionic/angular'
 import { debounceTime, takeUntil } from 'rxjs/operators'

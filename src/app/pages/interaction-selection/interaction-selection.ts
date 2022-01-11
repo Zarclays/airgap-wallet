@@ -1,4 +1,4 @@
-import { DeeplinkService } from '@zarclays/zgap-angular-core'
+// import { DeeplinkService } from '@zarclays/zgap-angular-core'
 import { Component } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { ModalController, Platform } from '@ionic/angular'

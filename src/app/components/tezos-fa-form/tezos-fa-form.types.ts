@@ -1,5 +1,5 @@
-import { UIResource } from '@airgap/angular-core'
-import { ICoinProtocol, ProtocolNetwork } from '@airgap/coinlib-core'
+import { UIResource } from '@zarclays/zgap-angular-core'
+import { ICoinProtocol, ProtocolNetwork } from '@zarclays/zgap-coinlib-core'
 
 export enum TokenInterface {
   FA1p2 = 'TZIP-007',

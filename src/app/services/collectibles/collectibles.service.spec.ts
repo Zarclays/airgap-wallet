@@ -1,4 +1,4 @@
-import { APP_INFO_PLUGIN, APP_PLUGIN, MainProtocolStoreService, PermissionsService, ProtocolService, SubProtocolStoreService } from '@airgap/angular-core'
+import { APP_INFO_PLUGIN, APP_PLUGIN, MainProtocolStoreService, PermissionsService, ProtocolService, SubProtocolStoreService } from '@zarclays/zgap-angular-core'
 import { TestBed } from '@angular/core/testing'
 import { PUSH_NOTIFICATIONS_PLUGIN } from 'src/app/capacitor-plugins/injection-tokens'
 

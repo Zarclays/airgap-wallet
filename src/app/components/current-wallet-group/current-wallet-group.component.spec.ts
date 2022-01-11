@@ -1,4 +1,4 @@
-import { APP_PLUGIN } from '@airgap/angular-core'
+import { APP_PLUGIN } from '@zarclays/zgap-angular-core'
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { UnitHelper } from '../../../../test-config/unit-test-helper'

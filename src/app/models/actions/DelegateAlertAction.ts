@@ -1,4 +1,4 @@
-import { UiEventService } from '@airgap/angular-core'
+import { UiEventService } from '@zarclays/zgap-angular-core'
 import { AlertController, LoadingController, PopoverController, ToastController } from '@ionic/angular'
 import { AirGapMarketWallet, TezosDelegatorAction } from '@zarclays/zgap-coinlib-core'
 import { Action } from '@zarclays/zgap-coinlib-core/actions/Action'

@@ -1,5 +1,5 @@
-import { getProtocolAndNetworkIdentifier, ProtocolService } from '@airgap/angular-core'
-import { ICoinProtocol, ProtocolSymbols } from '@airgap/coinlib-core'
+import { getProtocolAndNetworkIdentifier, ProtocolService } from '@zarclays/zgap-angular-core'
+import { ICoinProtocol, ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import { Component } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 

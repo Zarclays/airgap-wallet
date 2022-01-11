@@ -1,4 +1,4 @@
-import { /* FilesystemService, */ ProtocolService, UIResourceStatus } from '@airgap/angular-core'
+import { /* FilesystemService, */ ProtocolService, UIResourceStatus } from '@zarclays/zgap-angular-core'
 import {
   ICoinProtocol,
   MainProtocolSymbols,
@@ -10,11 +10,11 @@ import {
   TezosFAProtocolConfig,
   TezosFAProtocolOptions,
   TezosProtocolOptions
-} from '@airgap/coinlib-core'
-import { TezosContract } from '@airgap/coinlib-core/protocols/tezos/contract/TezosContract'
-import { TezosProtocolNetwork } from '@airgap/coinlib-core/protocols/tezos/TezosProtocolOptions'
-import { TezosContractMetadata } from '@airgap/coinlib-core/protocols/tezos/types/contract/TezosContractMetadata'
-import { TezosFATokenMetadata } from '@airgap/coinlib-core/protocols/tezos/types/fa/TezosFATokenMetadata'
+} from '@zarclays/zgap-coinlib-core'
+import { TezosContract } from '@zarclays/zgap-coinlib-core/protocols/tezos/contract/TezosContract'
+import { TezosProtocolNetwork } from '@zarclays/zgap-coinlib-core/protocols/tezos/TezosProtocolOptions'
+import { TezosContractMetadata } from '@zarclays/zgap-coinlib-core/protocols/tezos/types/contract/TezosContractMetadata'
+import { TezosFATokenMetadata } from '@zarclays/zgap-coinlib-core/protocols/tezos/types/fa/TezosFATokenMetadata'
 import { Injectable } from '@angular/core'
 import { ComponentStore, tapResponse } from '@ngrx/component-store'
 import { from, Observable, Subscriber } from 'rxjs'

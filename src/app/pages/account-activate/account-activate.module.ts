@@ -1,5 +1,5 @@
 // import { AirGapAngularCoreModule } from '@zarclays/zgap-angular-core'
-// import { AirGapAngularNgRxModule } from '@airgap/angular-ngrx'
+// import { AirGapAngularNgRxModule } from '@zarclays/zgap-angular-ngrx'
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'

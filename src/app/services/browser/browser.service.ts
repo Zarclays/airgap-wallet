@@ -1,4 +1,4 @@
-import { APP_PLUGIN } from '@zarclays/zgap-angular-core'
+// import { APP_PLUGIN } from '@zarclays/zgap-angular-core'
 import { APP_LAUNCHER_PLUGIN } from '@zarclays/zgap-angular-core'
 import { Inject, Injectable } from '@angular/core'
 import { AppLauncherPlugin } from '@capacitor/app-launcher'

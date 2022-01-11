@@ -17,7 +17,8 @@ import {
   SPLASH_SCREEN_PLUGIN,
   STATUS_BAR_PLUGIN
 } from '@zarclays/zgap-angular-core'
-import { AirGapAngularNgRxModule, currencySymbolNgRxFacade } from '@airgap/angular-ngrx'
+import { AirGapAngularNgRxModule } from '@zarclays/zgap-angular-ngrx'
+import {  currencySymbolNgRxFacade } from '@zarclays/zgap-angular-ngrx'
 import { CommonModule, DecimalPipe, PercentPipe } from '@angular/common'
 import { HttpClient, HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'

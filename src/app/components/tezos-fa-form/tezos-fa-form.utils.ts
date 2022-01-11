@@ -1,5 +1,5 @@
-import { TezosContractMetadata } from '@airgap/coinlib-core/protocols/tezos/types/contract/TezosContractMetadata'
-import { TezosFATokenMetadata } from '@airgap/coinlib-core/protocols/tezos/types/fa/TezosFATokenMetadata'
+import { TezosContractMetadata } from '@zarclays/zgap-coinlib-core/protocols/tezos/types/contract/TezosContractMetadata'
+import { TezosFATokenMetadata } from '@zarclays/zgap-coinlib-core/protocols/tezos/types/fa/TezosFATokenMetadata'
 import { ContractNotFoundError, InterfaceUnknownError, TezosFAFormError, TezosFAFormErrorType, TokenInterface, TokenMetadataMissingError, TokenVagueError, UnknownError } from './tezos-fa-form.types'
 
 export function contractNotFoundError(): ContractNotFoundError {

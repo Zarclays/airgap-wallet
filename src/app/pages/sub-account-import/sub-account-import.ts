@@ -1,7 +1,7 @@
 import { ProtocolService, getMainIdentifier } from '@zarclays/zgap-angular-core'
 import { Component } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { AirGapCoinWallet, AirGapMarketWallet, AirGapWalletStatus, ICoinProtocol, NetworkType, ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
+import { AirGapCoinWallet, AirGapMarketWallet, AirGapWalletStatus, ICoinProtocol,  ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import { map } from 'rxjs/operators'
 import { DataService, DataServiceKey } from 'src/app/services/data/data.service'
 import { PriceService } from 'src/app/services/price/price.service'

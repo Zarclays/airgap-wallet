@@ -1,7 +1,6 @@
 import { AirGapMarketWallet, TimeInterval } from '@zarclays/zgap-coinlib-core'
 import { Injectable } from '@angular/core'
-import { AirGapMarketWallet } from '@zarclays/zgap-coinlib-core'
-import { TimeInterval } from '@zarclays/zgap-coinlib-core/wallet/AirGapMarketWallet'
+
 
 import { WalletStorageService } from '../storage/storage'
 

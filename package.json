@@ -1,8 +1,8 @@
 {
   "name": "@zarclays/zgap-wallet",
   "version": "0.0.1",
-  "author": "Zarclays <info@zarclays.com> (https://zgap.zarclays.com)",
-  "homepage": "https://www.zgap.zarclays.com",
+  "author": "Zarclays <info@zarclays.com> (https://zyberwallet.zarclays.com)",
+  "homepage": "https://www.zyberwallet.zarclays.com",
   "private": true,
   "scripts": {
     "ng": "ng",
@@ -54,7 +54,8 @@
   },
   "dependencies": {
     "@airgap/beacon-sdk": "2.3.8",
-	"@airgap/angular-ngrx": "0.0.22",    "@airgap/sapling-wasm": "0.0.6",
+	     
+    "@airgap/sapling-wasm": "0.0.6",
     "@angular/animations": "^11.2.9",
     "@angular/common": "^11.2.9",
     "@angular/core": "^11.2.9",
@@ -105,8 +106,9 @@
     "@types/ledgerhq__hw-transport-u2f": "^4.21.1",
     "@types/ledgerhq__hw-transport-webusb": "^4.70.0",
     "@walletconnect/client": "^1.4.1",
-    "@zarclays/zgap-angular-core": "^0.2.7",
-    "@zarclays/zgap-coinlib-core": "^0.13.8",
+    "@zarclays/zgap-angular-core": "^0.2.8",
+    "@zarclays/zgap-angular-ngrx": "0.2.8", 
+    "@zarclays/zgap-coinlib-core": "^0.14.0",
     "@zondax/ledger-polkadot": "^0.13.6",
     "@zondax/ledger-substrate": "^0.17.3",
     "@zxing/browser": "0.0.8",

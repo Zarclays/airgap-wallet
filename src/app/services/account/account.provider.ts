@@ -2,19 +2,16 @@ import { ProtocolService, UiEventService } from '@zarclays/zgap-angular-core'
 import { AirGapMarketWallet, ICoinProtocol, MainProtocolSymbols, SerializedAirGapWallet, TezosProtocol } from '@zarclays/zgap-coinlib-core'
 import { TezosProtocolNetwork, TezosProtocolOptions } from '@zarclays/zgap-coinlib-core/protocols/tezos/TezosProtocolOptions'
 import { AirGapWalletStatus } from '@zarclays/zgap-coinlib-core/wallet/AirGapWallet'
-import { ProtocolService, UiEventService } from '@zarclays/zgap-angular-core'
+
 import {
   AirGapCoinWallet,
-  AirGapMarketWallet,
+  
   IACMessageType,
   IAirGapTransaction,
-  ICoinProtocol,
-  MainProtocolSymbols,
-  SerializedAirGapWallet,
-  TezosProtocol
+  
 } from '@zarclays/zgap-coinlib-core'
-import { TezosProtocolNetwork, TezosProtocolOptions } from '@zarclays/zgap-coinlib-core/protocols/tezos/TezosProtocolOptions'
-import { AirGapWalletStatus } from '@zarclays/zgap-coinlib-core/wallet/AirGapWallet'
+
+
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { PushNotificationSchema } from '@capacitor/push-notifications'

@@ -1,4 +1,4 @@
-import { Action, AirGapMarketWallet } from '@airgap/coinlib-core'
+import { Action, AirGapMarketWallet } from '@zarclays/zgap-coinlib-core'
 import { Router } from '@angular/router'
 import { ErrorCategory, handleErrorSentry } from 'src/app/services/sentry-error-handler/sentry-error-handler'
 import { DataServiceKey } from '../../services/data/data.service'

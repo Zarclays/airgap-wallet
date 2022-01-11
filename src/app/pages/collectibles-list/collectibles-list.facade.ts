@@ -1,5 +1,5 @@
-import { assertNever, BaseFacade, UIAction, UiEventService, UIResource } from '@airgap/angular-core'
-import { BaseNgRxFacade, FacadeTypes } from '@airgap/angular-ngrx'
+import { assertNever, BaseFacade, UIAction, UiEventService, UIResource } from '@zarclays/zgap-angular-core'
+import { BaseNgRxFacade, FacadeTypes } from '@zarclays/zgap-angular-ngrx'
 import { Injectable, InjectionToken } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { ToastOptions } from '@ionic/core'

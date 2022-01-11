@@ -4,7 +4,7 @@ import { NetworkType } from '@zarclays/zgap-coinlib-core/utils/ProtocolNetwork'
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { Platform } from '@ionic/angular'
-import { ICoinProtocol } from '@zarclays/zgap-coinlib-core'
+
 
 import { AccountProvider } from '../../services/account/account.provider'
 import { DataService, DataServiceKey } from '../../services/data/data.service'

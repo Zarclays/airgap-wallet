@@ -1,4 +1,4 @@
-import { AirGapMarketWallet, ProtocolSymbols } from '@airgap/coinlib-core'
+import { AirGapMarketWallet, ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 
 export interface Collectible {
   protocolIdentifier: ProtocolSymbols

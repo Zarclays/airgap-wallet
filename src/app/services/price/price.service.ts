@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core'
 import { ICoinProtocol } from '@zarclays/zgap-coinlib-core'
 import BigNumber from 'bignumber.js'
 import { CachingService, CachingServiceKey, StorageObject } from '../caching/caching.service'
-import { IAirGapTransactionResult } from '@airgap/coinlib-core/interfaces/IAirGapTransaction'
+import { IAirGapTransactionResult } from '@zarclays/zgap-coinlib-core/interfaces/IAirGapTransaction'
 
 export interface CryptoPrices {
   time: number

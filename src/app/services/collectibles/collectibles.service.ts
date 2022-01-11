@@ -1,4 +1,4 @@
-import { getMainIdentifier, ProtocolService } from '@airgap/angular-core'
+import { getMainIdentifier, ProtocolService } from '@zarclays/zgap-angular-core'
 import {
   AirGapMarketWallet,
   AirGapNFTWallet,
@@ -6,7 +6,7 @@ import {
   ICoinProtocol,
   MainProtocolSymbols,
   ProtocolSymbols
-} from '@airgap/coinlib-core'
+} from '@zarclays/zgap-coinlib-core'
 import { Injectable } from '@angular/core'
 import { promiseTimeout } from 'src/app/helpers/promise'
 

@@ -1,4 +1,4 @@
-import { AirGapMarketWallet, AirGapWalletStatus, NetworkType, SubProtocolSymbols, TimeInterval } from '@airgap/coinlib-core'
+import { AirGapMarketWallet, AirGapWalletStatus, NetworkType, SubProtocolSymbols, TimeInterval } from '@zarclays/zgap-coinlib-core'
 import { AfterViewInit, Component, Input, OnDestroy, ViewChild } from '@angular/core'
 import * as moment from 'moment'
 import { BaseChartDirective } from 'ng2-charts'

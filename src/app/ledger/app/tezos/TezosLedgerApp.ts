@@ -5,7 +5,7 @@ import {
   AirGapWalletStatus,
   RawTezosTransaction,
   TezosProtocol
-} from '@airgap/coinlib-core'
+} from '@zarclays/zgap-coinlib-core'
 import Tezos from '@obsidiansystems/hw-app-xtz'
 
 import { LedgerApp } from '../LedgerApp'

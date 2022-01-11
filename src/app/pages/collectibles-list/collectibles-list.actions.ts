@@ -1,4 +1,4 @@
-import { ProtocolSymbols } from '@airgap/coinlib-core'
+import { ProtocolSymbols } from '@zarclays/zgap-coinlib-core'
 import { ActivatedRouteSnapshot } from '@angular/router'
 import { createAction, props } from '@ngrx/store'
 

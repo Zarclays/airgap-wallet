@@ -1,4 +1,4 @@
-import { AirGapWalletStatus } from '@airgap/coinlib-core'
+import { AirGapWalletStatus } from '@zarclays/zgap-coinlib-core'
 import { Component, OnInit } from '@angular/core'
 import { ModalController } from '@ionic/angular'
 import { InteractionSelectionComponent } from 'src/app/components/interaction-selection/interaction-selection.component'

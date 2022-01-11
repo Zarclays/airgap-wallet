@@ -1,5 +1,5 @@
-import { DeeplinkService } from '@airgap/angular-core'
-import { AirGapMarketWallet, generateId, IACMessageDefinitionObjectV3, IACMessageType, IAirGapTransaction } from '@airgap/coinlib-core'
+import { DeeplinkService } from '@zarclays/zgap-angular-core'
+import { AirGapMarketWallet, generateId, IACMessageDefinitionObjectV3, IACMessageType, IAirGapTransaction } from '@zarclays/zgap-coinlib-core'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { AirGapMarketWalletGroup, InteractionSetting } from 'src/app/models/AirGapMarketWalletGroup'
